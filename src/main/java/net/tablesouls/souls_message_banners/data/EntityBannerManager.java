@@ -23,6 +23,10 @@ public class EntityBannerManager {
         return ENTRIES.size();
     }
 
+    public static void sort() {
+        ENTRIES.sort((a, b) -> Integer.compare(b.priority(), a.priority()));
+    }
+
     public static EntityBannerEntry get(EntityType<?> type) {
         ResourceLocation id = ForgeRegistries.ENTITY_TYPES.getKey(type);
 

@@ -17,6 +17,8 @@ import net.tablesouls.souls_message_banners.data.EntityBannerEntry;
 import net.tablesouls.souls_message_banners.data.EntityBannerManager;
 import org.slf4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class EntityBannerReloadListener extends SimpleJsonResourceReloadListener {
@@ -43,6 +45,7 @@ public class EntityBannerReloadListener extends SimpleJsonResourceReloadListener
                     GsonHelper.getAsString(json, "style")
             );
 
+            int priority = GsonHelper.getAsInt(json, "priority", 0);
             int radius = GsonHelper.getAsInt(json, "radius", 32);
             boolean dimension = GsonHelper.getAsBoolean(json, "dimension", false);
 
@@ -60,6 +63,7 @@ public class EntityBannerReloadListener extends SimpleJsonResourceReloadListener
                             null,
                             tag,
                             style,
+                            priority,
                             dimension,
                             radius
                     ));
@@ -69,6 +73,7 @@ public class EntityBannerReloadListener extends SimpleJsonResourceReloadListener
                             new ResourceLocation(target),
                             null,
                             style,
+                            priority,
                             dimension,
                             radius
                     ));
@@ -76,6 +81,7 @@ public class EntityBannerReloadListener extends SimpleJsonResourceReloadListener
             }
         }
 
+        EntityBannerManager.sort();
         LOGGER.info("Loaded {} entity banner entries", EntityBannerManager.size());
     }
 }

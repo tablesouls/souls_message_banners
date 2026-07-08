@@ -7,7 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
-import net.tablesouls.souls_message_banners.api.BannerStyle;
+import net.tablesouls.souls_message_banners.assets.BannerStyle;
 import net.tablesouls.souls_message_banners.util.MessageBannerHelper;
 
 public class MessageBannerRenderer implements IGuiOverlay {

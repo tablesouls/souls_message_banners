@@ -8,6 +8,7 @@ public record EntityBannerEntry(
         ResourceLocation entity,
         TagKey<EntityType<?>> tag,
         ResourceLocation style,
+        int priority,
         boolean dimension,
         int radius
 ) {}

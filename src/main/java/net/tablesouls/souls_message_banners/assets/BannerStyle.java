@@ -1,4 +1,4 @@
-package net.tablesouls.souls_message_banners.api;
+package net.tablesouls.souls_message_banners.assets;
 
 import com.google.gson.JsonObject;
 import net.minecraft.sounds.SoundEvent;

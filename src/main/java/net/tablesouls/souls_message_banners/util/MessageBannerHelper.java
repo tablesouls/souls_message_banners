@@ -4,7 +4,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
-import net.tablesouls.souls_message_banners.api.BannerStyle;
+import net.tablesouls.souls_message_banners.assets.BannerStyle;
 
 public class MessageBannerHelper {
     private static Component message = null;

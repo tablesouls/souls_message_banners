@@ -7,8 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.tablesouls.souls_message_banners.api.BannerStyle;
-import net.tablesouls.souls_message_banners.api.BannerStyleManager;
+import net.tablesouls.souls_message_banners.assets.BannerStyle;
+import net.tablesouls.souls_message_banners.assets.BannerStyleManager;
 import org.slf4j.Logger;
 
 import java.util.Map;

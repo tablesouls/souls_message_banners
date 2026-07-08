@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.PacketDistributor;
+import net.tablesouls.souls_message_banners.assets.BannerStyleManager;
 import net.tablesouls.souls_message_banners.network.MessageBannerPacket;
 import net.tablesouls.souls_message_banners.network.NetworkHandler;
 

@@ -7,5 +7,6 @@
     "mowziesmobs:umvuthi",
     "mowziesmobs:tongbi"
   ],
-  "style": "souls_message_banners:entity_felled"
+  "style": "souls_message_banners:entity_felled",
+  "priority": 0
 }
