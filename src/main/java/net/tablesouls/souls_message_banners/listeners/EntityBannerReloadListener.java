@@ -49,7 +49,6 @@ public class EntityBannerReloadListener extends SimpleJsonResourceReloadListener
             JsonArray targets = GsonHelper.getAsJsonArray(json, "targets");
 
             for (JsonElement targetElement : targets) {
-
                 String target = targetElement.getAsString();
 
                 if (target.startsWith("#")) {
@@ -57,7 +56,6 @@ public class EntityBannerReloadListener extends SimpleJsonResourceReloadListener
                             Registries.ENTITY_TYPE,
                             new ResourceLocation(target.substring(1))
                     );
-
                     EntityBannerManager.add(new EntityBannerEntry(
                             null,
                             tag,
@@ -67,7 +65,6 @@ public class EntityBannerReloadListener extends SimpleJsonResourceReloadListener
                     ));
 
                 } else {
-
                     EntityBannerManager.add(new EntityBannerEntry(
                             new ResourceLocation(target),
                             null,

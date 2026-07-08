@@ -8,6 +8,7 @@ version="${mod_version}"
 displayName="${mod_name}"
 authors="${mod_authors}"
 description='''${mod_description}'''
+logoFile="${mod_logo}"
 
 [[mixins]]
 config = "mixins.souls_message_banners.bonfires.json"

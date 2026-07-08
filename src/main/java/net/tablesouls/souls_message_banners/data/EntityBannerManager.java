@@ -26,14 +26,12 @@ public class EntityBannerManager {
     public static EntityBannerEntry get(EntityType<?> type) {
         ResourceLocation id = ForgeRegistries.ENTITY_TYPES.getKey(type);
 
-        // First: exact entity matches
         for (EntityBannerEntry entry : ENTRIES) {
             if (entry.entity() != null && entry.entity().equals(id)) {
                 return entry;
             }
         }
 
-        // Second: tag matches
         for (EntityBannerEntry entry : ENTRIES) {
             if (entry.tag() != null && type.is(entry.tag())) {
                 return entry;

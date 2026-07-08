@@ -1,6 +1,11 @@
 {
   "targets": [
-    "#forge:bosses"
+    "#forge:bosses",
+    "#c:bosses",
+    "mowziesmobs:ferrous_wroughtnaut",
+    "mowziesmobs:frostmaw",
+    "mowziesmobs:umvuthi",
+    "mowziesmobs:tongbi"
   ],
-  "style": "souls_message_banners:enemy_felled"
+  "style": "souls_message_banners:entity_felled"
 }
