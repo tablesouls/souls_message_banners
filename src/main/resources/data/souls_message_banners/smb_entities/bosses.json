@@ -1,0 +1,6 @@
+{
+  "targets": [
+    "#forge:bosses"
+  ],
+  "style": "souls_message_banners:enemy_felled"
+}

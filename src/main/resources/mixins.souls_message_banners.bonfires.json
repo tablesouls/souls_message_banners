@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "package": "net.tablesouls.souls_message_banners.mixin.bonfires",
+  "compatibilityLevel": "JAVA_17",
+  "plugin": "net.tablesouls.souls_message_banners.mixin.MixinConfigPlugin",
+  "client": [
+    "DisplayTitleMixin"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "text": {
+      "color": {
+        "red": 170,
+        "green": 0,
+        "blue": 170
+      }
+  },
+  "animation": {
+    "fade_in": 20,
+    "hold": 120,
+    "fade_out": 30
+  }
+}

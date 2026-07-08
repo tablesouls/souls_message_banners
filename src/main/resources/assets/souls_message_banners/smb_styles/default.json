@@ -1,0 +1,31 @@
+{
+  "enabled": true,
+  "font": "souls_message_banners:optimus_principus",
+  "sound": "souls_message_banners:generic",
+  "banner": {
+    "opacity": 0.5
+  },
+  "text": {
+    "opacity": 0.9,
+    "scale": 2.0,
+    "x": 0.0,
+    "y": 0.0,
+    "color": {
+      "red": 250,
+      "green": 170,
+      "blue": 0
+    }
+  },
+  "ghost_text": {
+    "opacity": 0.8,
+    "start_scale": 0.5,
+    "end_scale": 1.1,
+    "spacing_modifer": 0.04,
+    "hold_spacing_modifier": 1.2
+  },
+  "animation": {
+    "fade_in": 10,
+    "hold": 60,
+    "fade_out": 10
+  }
+}

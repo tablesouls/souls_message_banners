@@ -1,0 +1,18 @@
+{
+  "generic": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "souls_message_banners:generic"
+      }
+    ]
+  },
+  "enemy_felled": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "souls_message_banners:enemy_felled"
+      }
+    ]
+  }
+}

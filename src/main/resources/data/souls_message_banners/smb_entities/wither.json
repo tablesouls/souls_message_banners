@@ -1,0 +1,6 @@
+{
+  "targets": [
+    "minecraft:wither"
+  ],
+  "style": "souls_message_banners:wither_felled"
+}

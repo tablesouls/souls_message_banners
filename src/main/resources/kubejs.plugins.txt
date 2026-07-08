@@ -1,0 +1,1 @@
+net.tablesouls.souls_message_banners.integration.kubejs.SoulsMessageBannersKubeJSPlugin
