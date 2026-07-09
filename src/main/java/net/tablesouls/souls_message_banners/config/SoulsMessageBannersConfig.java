@@ -17,7 +17,9 @@ public class SoulsMessageBannersConfig {
     public static final ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
     public static final ForgeConfigSpec CLIENT_SPEC;
 
-    public static final ForgeConfigSpec.ConfigValue<Float> DEFAULT_TEXT_SIZE;
+    public static final ForgeConfigSpec.ConfigValue<Float> Y_OFFSET;
+    public static final ForgeConfigSpec.BooleanValue TEXT_AUTOSCALE;
+    public static final ForgeConfigSpec.ConfigValue<Float> DEFAULT_TEXT_SCALE;
     public static final ForgeConfigSpec.ConfigValue<String> DEFAULT_SOUND;
     public static final ForgeConfigSpec.ConfigValue<String> DEFAULT_FONT;
 
@@ -57,9 +59,17 @@ public class SoulsMessageBannersConfig {
 
         CLIENT_BUILDER.comment("Appearance").push("appearance");
 
-        DEFAULT_TEXT_SIZE = CLIENT_BUILDER
-                .comment("Default text size")
-                .define("default_text_size", 2.0f);
+        Y_OFFSET = CLIENT_BUILDER
+                .comment("Set Y offset of the message banner")
+                .define("y_offset", 0.0f);
+
+        TEXT_AUTOSCALE = CLIENT_BUILDER
+                .comment("Should text fit into the screen")
+                .define("text_autoscale", true);
+
+        DEFAULT_TEXT_SCALE = CLIENT_BUILDER
+                .comment("Default default text scale")
+                .define("default_text_scale", 2.0f);
 
         DEFAULT_SOUND = CLIENT_BUILDER
                 .comment("Default sound")

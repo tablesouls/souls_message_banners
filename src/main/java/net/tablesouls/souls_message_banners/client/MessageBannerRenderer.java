@@ -37,7 +37,20 @@ public class MessageBannerRenderer implements IGuiOverlay {
         RenderSystem.enableBlend();
 
         // general text properties
+        float textScale = style.textScale();
+        boolean textAutoScale = style.textAutoScale();
+
         int textWidth = font.width(message);
+
+        if (textAutoScale) {
+            float maxWidth = screenWidth * 0.9f;
+            float scaledWidth =  textWidth * textScale;
+
+            if (scaledWidth > maxWidth) {
+                textScale = maxWidth / textWidth;
+            }
+        }
+
         int textX = -(int)(textWidth / 2f) ;
         int textY = -(int)(font.lineHeight / 2f);
         int textRgb = (style.textRed() << 16) | (style.textGreen() << 8) | style.textBlue();
@@ -54,7 +67,7 @@ public class MessageBannerRenderer implements IGuiOverlay {
         float ghostTextSpacing = MessageBannerHelper.getSpacingAnimation(smoothTicks, spacingMultiplier, holdSpacingMultiplier);
 
         // animates the ghost text
-        pushTextTransform(guiGraphics, style, x, y);
+        pushTextTransform(guiGraphics, style, x, y, textScale, textScale);
         guiGraphics.pose().pushPose();
         guiGraphics.pose().scale(ghostTextScale, ghostTextScale, 1f);
 
@@ -78,7 +91,7 @@ public class MessageBannerRenderer implements IGuiOverlay {
         int textColor = (textAlpha << 24) | textRgb;
 
         // animates the main text
-        pushTextTransform(guiGraphics, style, x, y);
+        pushTextTransform(guiGraphics, style, x, y, textScale, textScale);
         guiGraphics.drawString(font, message, textX, textY, textColor, false);
         guiGraphics.pose().popPose(); // main text transform
 
@@ -88,20 +101,14 @@ public class MessageBannerRenderer implements IGuiOverlay {
     private void pushTextTransform(
             GuiGraphics guiGraphics,
             BannerStyle style,
-            int x,
-            int y
+            float x,
+            float y,
+            float w,
+            float h
     ) {
         guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate(
-                x + style.textOffsetX(),
-                y + style.textOffsetY(),
-                0
-        );
-        guiGraphics.pose().scale(
-                style.textScale(),
-                style.textScale(),
-                1f
-        );
+        guiGraphics.pose().translate(x + style.textOffsetX(), y + style.textOffsetY(), 0);
+        guiGraphics.pose().scale(w, h, 1f);
     }
 
     private void drawSpacedText(GuiGraphics guiGraphics, Font font, Component message, int x, int y, int color, float spacingMultiplier) {
