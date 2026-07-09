@@ -17,7 +17,7 @@ public class SoulsMessageBannersConfig {
     public static final ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
     public static final ForgeConfigSpec CLIENT_SPEC;
 
-    public static final ForgeConfigSpec.ConfigValue<Float> Y_OFFSET;
+    public static final ForgeConfigSpec.ConfigValue<Integer> Y_OFFSET;
     public static final ForgeConfigSpec.BooleanValue TEXT_AUTOSCALE;
     public static final ForgeConfigSpec.ConfigValue<Float> DEFAULT_TEXT_SCALE;
     public static final ForgeConfigSpec.ConfigValue<String> DEFAULT_SOUND;
@@ -60,8 +60,8 @@ public class SoulsMessageBannersConfig {
         CLIENT_BUILDER.comment("Appearance").push("appearance");
 
         Y_OFFSET = CLIENT_BUILDER
-                .comment("Set Y offset of the message banner")
-                .define("y_offset", 0.0f);
+                .comment("Set Y offset of the entire message banner")
+                .define("y_offset", 0);
 
         TEXT_AUTOSCALE = CLIENT_BUILDER
                 .comment("Should text fit into the screen")

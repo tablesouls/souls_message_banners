@@ -1,3 +1,5 @@
 {
-  "text_autoscale": true
+  "text": {
+    "autoscale": true
+  }
 }

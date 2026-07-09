@@ -29,7 +29,7 @@ public class MessageBannerRenderer implements IGuiOverlay {
         var font = gui.getFont();
 
         int x = screenWidth/2;
-        int y = screenHeight/2;
+        int y = screenHeight/2 - style.yOffset();
 
         int alphaInt = (int) (alpha * 255f);
         if (alpha <= 0f || alphaInt < 5) return;

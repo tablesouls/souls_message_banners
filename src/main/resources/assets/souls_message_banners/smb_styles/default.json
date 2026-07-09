@@ -2,11 +2,13 @@
   "enabled": true,
   "font": "souls_message_banners:optimus_principus",
   "sound": "souls_message_banners:generic",
+  "y_offset": 0,
   "banner": {
     "opacity": 0.5
   },
   "text": {
     "opacity": 0.9,
+    "autoscale": false,
     "scale": 2.0,
     "x": 0.0,
     "y": 0.0,
