@@ -60,7 +60,8 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 mixin {
     add sourceSets.main, "${mod_id}.refmap.json"
 
-    config "mixins.souls_message_banners.bonfires.json"
+    config "${mod_id}.mixins.bonfires.json"
+    config "${mod_id}.mixins.json"
 }
 
 repositories {
@@ -86,6 +87,7 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     compileOnly fg.deobf("maven.modrinth:waystones:${project.waystones_version}+forge-${project.minecraft_version}")
     compileOnly fg.deobf("maven.modrinth:balm:${project.balm_version}+forge-${project.minecraft_version}")

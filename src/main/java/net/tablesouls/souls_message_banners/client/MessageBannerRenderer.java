@@ -61,10 +61,9 @@ public class MessageBannerRenderer implements IGuiOverlay {
 
         int ghostTextColor = (ghostTextAlpha << 24) | textRgb;
         float spacingMultiplier = style.spacingModifier();
-        float holdSpacingMultiplier = style.holdSpacingModifier();
 
         float ghostTextScale = MessageBannerHelper.getGhostTextScale(smoothTicks, style.ghostTextStartScale(), style.ghostTextEndScale());
-        float ghostTextSpacing = MessageBannerHelper.getSpacingAnimation(smoothTicks, spacingMultiplier, holdSpacingMultiplier);
+        float ghostTextSpacing = MessageBannerHelper.getSpacingAnimation(smoothTicks, spacingMultiplier);
 
         // animates the ghost text
         pushTextTransform(guiGraphics, style, x, y, textScale, textScale);

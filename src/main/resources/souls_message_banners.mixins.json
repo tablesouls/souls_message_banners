@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "net.tablesouls.souls_message_banners.mixin",
+  "refmap": "souls_message_banners.refmap.json",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "RaidStatusMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -14,5 +14,21 @@
         "name": "souls_message_banners:enemy_felled"
       }
     ]
+  },
+  "host_vanquished": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "souls_message_banners:host_vanquished"
+      }
+    ]
+  },
+  "invader_vanquished": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "souls_message_banners:invader_vanquished"
+      }
+    ]
   }
 }

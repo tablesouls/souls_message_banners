@@ -1,11 +1,13 @@
 package net.tablesouls.souls_message_banners.assets;
 
 import com.google.gson.JsonObject;
+import com.mojang.logging.LogUtils;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.tablesouls.souls_message_banners.config.SoulsMessageBannersConfig;
+import org.slf4j.Logger;
 
 public record BannerStyle(
         boolean enabled,
@@ -24,12 +26,23 @@ public record BannerStyle(
         float ghostTextOpacity,
         float ghostTextStartScale,
         float ghostTextEndScale,
+        SpacingAnimationMode spacingAnimationMode,
         float spacingModifier,
-        float holdSpacingModifier,
         int fadeInTicks,
         int holdTicks,
         int fadeOutTicks
 ) {
+    private static final Logger LOGGER = LogUtils.getLogger();
+
+    public enum SpacingAnimationMode {
+        FADE_IN,
+        FADE_OUT,
+        FADE_IN_AND_HOLD,
+        HOLD,
+        HOLD_AND_FADE_OUT,
+        FULL
+    }
+
     public static BannerStyle fromJson(JsonObject json) {
         JsonObject banner = GsonHelper.getAsJsonObject(json, "banner", new JsonObject());
         JsonObject text = GsonHelper.getAsJsonObject(json, "text", new JsonObject());
@@ -38,18 +51,46 @@ public record BannerStyle(
         JsonObject animation = GsonHelper.getAsJsonObject(json, "animation", new JsonObject());
 
         SoundEvent sound = null;
+        ResourceLocation font;
+        SpacingAnimationMode spacingAnimationMode;
+
+        try {
+            font = new ResourceLocation(
+                    GsonHelper.getAsString(json, "font", SoulsMessageBannersConfig.DEFAULT_FONT.get())
+            );
+        } catch (Exception e) {
+            LOGGER.warn("Invalid font '{}', using default.",
+                    GsonHelper.getAsString(json, "font", SoulsMessageBannersConfig.DEFAULT_FONT.get()), e);
+            font = new ResourceLocation(SoulsMessageBannersConfig.DEFAULT_FONT.get());
+        }
+
         if (json.has("sound")) {
             String soundKey = GsonHelper.getAsString(json, "sound");
-            ResourceLocation soundId = new ResourceLocation(soundKey);
-            sound = ForgeRegistries.SOUND_EVENTS.getValue(soundId);
+
+            try {
+                ResourceLocation soundId = new ResourceLocation(soundKey);
+                sound = ForgeRegistries.SOUND_EVENTS.getValue(soundId);
+
+                if (sound == null) {
+                    LOGGER.warn("Unknown sound '{}', using default.", soundKey);
+                }
+            } catch (Exception e) {
+                LOGGER.warn("Invalid sound '{}', using default.", soundKey, e);
+            }
         }
+
         if (sound == null) {
             sound = SoulsMessageBannersConfig.getSound();
         }
 
-        ResourceLocation font = new ResourceLocation(
-          GsonHelper.getAsString(json, "font", SoulsMessageBannersConfig.DEFAULT_FONT.get())
-        );
+        String spacing_animation_mode_name = GsonHelper.getAsString(ghost_text, "spacing_animation_mode", "HOLD").toUpperCase();
+
+        try {
+            spacingAnimationMode = SpacingAnimationMode.valueOf(spacing_animation_mode_name);
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn("Unknown spacing_animation_mode '{}', using default.", spacing_animation_mode_name);
+            spacingAnimationMode = SpacingAnimationMode.HOLD;
+        }
 
         return new BannerStyle(
                 GsonHelper.getAsBoolean(json, "enabled", true),
@@ -69,8 +110,8 @@ public record BannerStyle(
                 GsonHelper.getAsFloat(ghost_text, "opacity", 0.5f),
                 GsonHelper.getAsFloat(ghost_text, "start_scale", 0.5f),
                 GsonHelper.getAsFloat(ghost_text, "end_scale", 1.1f),
-                GsonHelper.getAsFloat(ghost_text, "spacing_modifier", 0.04f),
-                GsonHelper.getAsFloat(ghost_text, "hold_spacing_modifier", 1.2f),
+                spacingAnimationMode,
+                GsonHelper.getAsFloat(ghost_text, "spacing_modifier", 0.06f),
 
                 GsonHelper.getAsInt(animation, "fade_in", 10),
                 GsonHelper.getAsInt(animation, "hold", 60),

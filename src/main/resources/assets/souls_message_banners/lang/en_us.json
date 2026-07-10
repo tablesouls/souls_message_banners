@@ -5,5 +5,7 @@
   "souls_message_banners.message.dragon_felled": "DRAGON FELLED",
   "souls_message_banners.message.wither_felled": "WITHER FELLED",
   "souls_message_banners.message.entity_felled": "%s FELLED",
-  "souls_message_banners.message.waystone_activated": "WAYSTONE ACTIVATED"
+  "souls_message_banners.message.waystone_activated": "WAYSTONE ACTIVATED",
+  "souls_message_banners.message.raid_victory": "RAIDERS BANISHED",
+  "souls_message_banners.message.raid_loss": "VILLAGE LOST"
 }

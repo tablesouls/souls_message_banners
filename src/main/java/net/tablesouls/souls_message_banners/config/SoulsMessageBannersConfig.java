@@ -13,6 +13,7 @@ public class SoulsMessageBannersConfig {
     public static final ForgeConfigSpec.BooleanValue BONFIRE_LIT;
     public static final ForgeConfigSpec.BooleanValue WAYSTONE_ACTIVATION;
     public static final ForgeConfigSpec.BooleanValue ENTITY_FELLLED;
+    public static final ForgeConfigSpec.BooleanValue RAID_STATUS;
 
     public static final ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
     public static final ForgeConfigSpec CLIENT_SPEC;
@@ -36,6 +37,10 @@ public class SoulsMessageBannersConfig {
                         "By default, its all bosses tagged with forge:bosses.",
                         "Special banners are given to the Wither and Ender Dragon.")
                 .define("entity_felled", true);
+
+        RAID_STATUS = COMMON_BUILDER
+                .comment("Banner for either raid victory or loss")
+                .define("raid_status", true);
 
         COMMON_BUILDER.comment("Compatibility").push("compatibility");
         BONFIRE_LIT = COMMON_BUILDER

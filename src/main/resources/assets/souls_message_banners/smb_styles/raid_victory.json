@@ -1,0 +1,9 @@
+{
+  "sound": "souls_message_banners:invader_vanquished",
+  "ghost_text": {
+    "spacing_animation_mode": "FULL"
+  },
+  "animation": {
+    "fade_in": 20
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "sound": "souls_message_banners:host_vanquished",
+  "text": {
+    "color": {
+      "red": 170,
+      "green": 0,
+      "blue": 0
+    }
+  },
+  "ghost_text": {
+    "spacing_animation_mode": "FULL"
+  }
+}

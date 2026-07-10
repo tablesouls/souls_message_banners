@@ -18,7 +18,7 @@ import wehavecookies56.bonfires.packets.client.DisplayTitle;
 
 @Mixin(DisplayTitle.class)
 public class DisplayTitleMixin {
-    @Inject(method = "handle", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "handle", at = @At("HEAD"), cancellable = true, remap = false)
     private void souls_message_banners$replaceWithBanner(NetworkEvent.Context context, CallbackInfo ci) {
         if (!SoulsMessageBannersConfig.BONFIRE_LIT.get()) return;
         ci.cancel();

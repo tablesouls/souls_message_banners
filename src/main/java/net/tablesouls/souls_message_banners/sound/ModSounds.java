@@ -16,4 +16,10 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> ENEMY_FELLED = SOUND_EVENTS.register("enemy_felled",
             () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(SoulsMessageBanners.MODID, "enemy_felled")));
+
+    public static final RegistryObject<SoundEvent> HOST_VANQUISHED = SOUND_EVENTS.register("host_vanquished",
+            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(SoulsMessageBanners.MODID, "host_vanquished")));
+
+    public static final RegistryObject<SoundEvent> INVADER_VANQUISHED = SOUND_EVENTS.register("invader_vanquished",
+            () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(SoulsMessageBanners.MODID, "invader_vanquished")));
 }

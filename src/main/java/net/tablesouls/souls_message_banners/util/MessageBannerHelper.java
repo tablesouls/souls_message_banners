@@ -98,29 +98,45 @@ public class MessageBannerHelper {
         return endScale;
     }
 
-    public static float getSpacingAnimation(float smoothTicks, float spacingMultiplier, float holdSpacingMultiplier) {
+    public static float getSpacingAnimation(float smoothTicks, float spacingMultiplier) {
         if (message == null) return 0f;
 
         int FADE_IN = style.fadeInTicks();
         int HOLD = style.holdTicks();
+        int FADE_OUT = style.fadeOutTicks();
 
-        if (smoothTicks < FADE_IN) {
-            return 0f;
+        float progress;
+
+        switch (style.spacingAnimationMode()) {
+            case FADE_IN -> {
+                progress = Mth.clamp(smoothTicks / (float) FADE_IN, 0f, 1f);
+            }
+
+            case FADE_OUT -> {
+                progress = Mth.clamp((smoothTicks - FADE_IN - HOLD) / (float) FADE_OUT, 0f, 1f);
+            }
+
+            case FADE_IN_AND_HOLD -> {
+                progress = Mth.clamp(smoothTicks / (float) (FADE_IN + HOLD), 0f, 1f);
+            }
+
+            case HOLD -> {
+                progress = Mth.clamp((smoothTicks - FADE_IN) / (float) HOLD, 0f, 1f);
+            }
+
+            case HOLD_AND_FADE_OUT -> {
+                progress = Mth.clamp((smoothTicks - FADE_IN) / (float) (HOLD + FADE_OUT), 0f, 1f);
+            }
+
+            case FULL -> {
+                progress = Mth.clamp(smoothTicks / (float) (FADE_IN + HOLD + FADE_OUT), 0f, 1f);
+            }
+
+            default -> {
+                progress = 1f;
+            }
         }
 
-        if (smoothTicks < FADE_IN + HOLD) {
-            float holdTick = smoothTicks - FADE_IN;
-            float holdProgress = holdTick / (float) HOLD;
-            float eased = 1f - (float)Math.pow(1f - holdProgress, 3);
-
-            return eased * spacingMultiplier * holdSpacingMultiplier;
-        }
-
-        return spacingMultiplier * holdSpacingMultiplier;
-    }
-
-    public static float getSpacingAnimation(float smoothTicks, float spacingMultiplier){
-        float holdSpacingMultiplier = 1.6f;
-        return getSpacingAnimation(smoothTicks, spacingMultiplier, holdSpacingMultiplier);
+        return progress * spacingMultiplier;
     }
 }
