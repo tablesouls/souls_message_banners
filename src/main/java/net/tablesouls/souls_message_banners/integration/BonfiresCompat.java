@@ -2,8 +2,8 @@ package net.tablesouls.souls_message_banners.integration;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraftforge.client.event.sound.PlaySoundEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.client.event.sound.PlaySoundEvent;
 import net.tablesouls.souls_message_banners.config.SoulsMessageBannersConfig;
 import wehavecookies56.bonfires.client.gui.CreateBonfireScreen;
 

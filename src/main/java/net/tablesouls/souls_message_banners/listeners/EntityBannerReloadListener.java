@@ -17,8 +17,6 @@ import net.tablesouls.souls_message_banners.data.EntityBannerEntry;
 import net.tablesouls.souls_message_banners.data.EntityBannerManager;
 import org.slf4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class EntityBannerReloadListener extends SimpleJsonResourceReloadListener {
@@ -41,7 +39,7 @@ public class EntityBannerReloadListener extends SimpleJsonResourceReloadListener
 
             JsonObject json = element.getAsJsonObject();
 
-            ResourceLocation style = new ResourceLocation(
+            ResourceLocation style = ResourceLocation.parse(
                     GsonHelper.getAsString(json, "style")
             );
 
@@ -57,7 +55,7 @@ public class EntityBannerReloadListener extends SimpleJsonResourceReloadListener
                 if (target.startsWith("#")) {
                     TagKey<EntityType<?>> tag = TagKey.create(
                             Registries.ENTITY_TYPE,
-                            new ResourceLocation(target.substring(1))
+                            ResourceLocation.parse(target.substring(1))
                     );
                     EntityBannerManager.add(new EntityBannerEntry(
                             null,
@@ -70,7 +68,7 @@ public class EntityBannerReloadListener extends SimpleJsonResourceReloadListener
 
                 } else {
                     EntityBannerManager.add(new EntityBannerEntry(
-                            new ResourceLocation(target),
+                            ResourceLocation.parse(target),
                             null,
                             style,
                             priority,

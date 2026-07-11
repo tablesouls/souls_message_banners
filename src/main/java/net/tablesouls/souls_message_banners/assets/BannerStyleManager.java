@@ -13,7 +13,7 @@ public class BannerStyleManager {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public static final ResourceLocation DEFAULT =
-            new ResourceLocation(SoulsMessageBanners.MODID, "default");
+            ResourceLocation.fromNamespaceAndPath(SoulsMessageBanners.MODID, "default");
 
     public static BannerStyle get(ResourceLocation id) {
         BannerStyle style = STYLES.get(id);
@@ -31,4 +31,3 @@ public class BannerStyleManager {
         STYLES.clear();
     }
 }
-

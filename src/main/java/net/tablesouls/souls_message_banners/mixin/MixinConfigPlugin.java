@@ -1,6 +1,6 @@
 package net.tablesouls.souls_message_banners.mixin;
 
-import net.minecraftforge.fml.loading.LoadingModList;
+import net.neoforged.fml.loading.LoadingModList;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -19,6 +19,7 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         return LoadingModList.get().getModFileById("bonfires") != null;
     }
+
     @Override
     public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {}
 

@@ -1,17 +1,15 @@
 package net.tablesouls.souls_message_banners.client;
 
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.tablesouls.souls_message_banners.SoulsMessageBanners;
 import net.tablesouls.souls_message_banners.util.MessageBannerHelper;
 
-@Mod.EventBusSubscriber(modid = SoulsMessageBanners.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = SoulsMessageBanners.MODID)
 public class ClientHandler {
     @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase == TickEvent.Phase.END) {
-            MessageBannerHelper.tick();
-        }
+    public static void onClientTick(ClientTickEvent.Post event) {
+        MessageBannerHelper.tick();
     }
 }

@@ -2,7 +2,7 @@
   "required": true,
   "package": "net.tablesouls.souls_message_banners.mixin.bonfires",
   "refmap": "souls_message_banners.refmap.json",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_21",
   "plugin": "net.tablesouls.souls_message_banners.mixin.MixinConfigPlugin",
   "client": [
     "DisplayTitleMixin"

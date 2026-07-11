@@ -1,10 +1,10 @@
 package net.tablesouls.souls_message_banners.integration;
 
-import net.blay09.mods.waystones.api.WaystoneActivatedEvent;
+import net.blay09.mods.waystones.api.event.WaystoneActivatedEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.tablesouls.souls_message_banners.SoulsMessageBanners;
 import net.tablesouls.souls_message_banners.api.MessageBannerAPI;
 import net.tablesouls.souls_message_banners.config.SoulsMessageBannersConfig;
@@ -18,6 +18,6 @@ public class WaystonesCompat {
         MessageBannerAPI.send(
                 serverPlayer,
                 Component.translatable("souls_message_banners.message.waystone_activated"),
-                new ResourceLocation(SoulsMessageBanners.MODID, "waystone_activated"));
+                ResourceLocation.fromNamespaceAndPath(SoulsMessageBanners.MODID,"waystone_activated"));
     }
 }

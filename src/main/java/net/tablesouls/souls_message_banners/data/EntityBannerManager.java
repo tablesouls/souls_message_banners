@@ -1,8 +1,8 @@
 package net.tablesouls.souls_message_banners.data;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class EntityBannerManager {
     }
 
     public static EntityBannerEntry get(EntityType<?> type) {
-        ResourceLocation id = ForgeRegistries.ENTITY_TYPES.getKey(type);
+        ResourceLocation id = BuiltInRegistries.ENTITY_TYPE.getKey(type);
 
         for (EntityBannerEntry entry : ENTRIES) {
             if (entry.entity() != null && entry.entity().equals(id)) {

@@ -2,27 +2,27 @@ package net.tablesouls.souls_message_banners.config;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 public class SoulsMessageBannersConfig {
-    public static final ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
-    public static final ForgeConfigSpec COMMON_SPEC;
+    public static final ModConfigSpec.Builder COMMON_BUILDER = new ModConfigSpec.Builder();
+    public static final ModConfigSpec COMMON_SPEC;
 
-    public static final ForgeConfigSpec.BooleanValue CAMPFIRE_LIT;
-    public static final ForgeConfigSpec.BooleanValue BONFIRE_LIT;
-    public static final ForgeConfigSpec.BooleanValue WAYSTONE_ACTIVATION;
-    public static final ForgeConfigSpec.BooleanValue ENTITY_FELLLED;
-    public static final ForgeConfigSpec.BooleanValue RAID_STATUS;
+    public static final ModConfigSpec.BooleanValue CAMPFIRE_LIT;
+    public static final ModConfigSpec.BooleanValue BONFIRE_LIT;
+    public static final ModConfigSpec.BooleanValue WAYSTONE_ACTIVATION;
+    public static final ModConfigSpec.BooleanValue ENTITY_FELLLED;
+    public static final ModConfigSpec.BooleanValue RAID_STATUS;
 
-    public static final ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
-    public static final ForgeConfigSpec CLIENT_SPEC;
+    public static final ModConfigSpec.Builder CLIENT_BUILDER = new ModConfigSpec.Builder();
+    public static final ModConfigSpec CLIENT_SPEC;
 
-    public static final ForgeConfigSpec.ConfigValue<Integer> Y_OFFSET;
-    public static final ForgeConfigSpec.BooleanValue TEXT_AUTOSCALE;
-    public static final ForgeConfigSpec.ConfigValue<Float> DEFAULT_TEXT_SCALE;
-    public static final ForgeConfigSpec.ConfigValue<String> DEFAULT_SOUND;
-    public static final ForgeConfigSpec.ConfigValue<String> DEFAULT_FONT;
+    public static final ModConfigSpec.ConfigValue<Integer> Y_OFFSET;
+    public static final ModConfigSpec.BooleanValue TEXT_AUTOSCALE;
+    public static final ModConfigSpec.ConfigValue<Double> DEFAULT_TEXT_SCALE;
+    public static final ModConfigSpec.ConfigValue<String> DEFAULT_SOUND;
+    public static final ModConfigSpec.ConfigValue<String> DEFAULT_FONT;
 
     static {
         COMMON_BUILDER.push("Common Config");
@@ -74,20 +74,20 @@ public class SoulsMessageBannersConfig {
 
         DEFAULT_TEXT_SCALE = CLIENT_BUILDER
                 .comment("Default default text scale")
-                .define("default_text_scale", 2.0f);
+                .define("default_text_scale", 2.0);
 
         DEFAULT_SOUND = CLIENT_BUILDER
                 .comment("Default sound")
                 .define("default_sound", "souls_message_banners:generic", obj -> {
                     if (!(obj instanceof String string)) return false;
-                    return ResourceLocation.isValidResourceLocation(string);
+                    return ResourceLocation.tryParse(string) != null;
                 });
 
         DEFAULT_FONT = CLIENT_BUILDER
                 .comment("Default font")
                 .define("default_font", "souls_message_banners:optimus_principus", obj -> {
                     if (!(obj instanceof String string)) return false;
-                    return ResourceLocation.isValidResourceLocation(string);
+                    return ResourceLocation.tryParse(string) != null;
                 });
         CLIENT_BUILDER.pop();
 
@@ -96,11 +96,11 @@ public class SoulsMessageBannersConfig {
     }
 
     public static SoundEvent getSound() {
-        ResourceLocation id = new ResourceLocation(DEFAULT_SOUND.get());
-        return ForgeRegistries.SOUND_EVENTS.getValue(id);
+        ResourceLocation id = ResourceLocation.parse(DEFAULT_SOUND.get());
+        return BuiltInRegistries.SOUND_EVENT.get(id);
     }
 
     public static ResourceLocation getFont() {
-        return new ResourceLocation(DEFAULT_FONT.get());
+        return ResourceLocation.parse(DEFAULT_FONT.get());
     }
 }

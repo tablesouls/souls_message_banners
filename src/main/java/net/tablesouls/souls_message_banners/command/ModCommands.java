@@ -11,14 +11,14 @@ import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.tablesouls.souls_message_banners.SoulsMessageBanners;
-import net.tablesouls.souls_message_banners.assets.BannerStyleManager;
 import net.tablesouls.souls_message_banners.api.MessageBannerAPI;
+import net.tablesouls.souls_message_banners.assets.BannerStyleManager;
 
-@Mod.EventBusSubscriber(modid = SoulsMessageBanners.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = SoulsMessageBanners.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class ModCommands {
 
     @SubscribeEvent

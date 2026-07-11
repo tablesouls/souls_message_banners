@@ -2,10 +2,10 @@ package net.tablesouls.souls_message_banners.assets;
 
 import com.google.gson.JsonObject;
 import com.mojang.logging.LogUtils;
-import net.minecraft.sounds.SoundEvent;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.GsonHelper;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.tablesouls.souls_message_banners.config.SoulsMessageBannersConfig;
 import org.slf4j.Logger;
 
@@ -55,21 +55,21 @@ public record BannerStyle(
         SpacingAnimationMode spacingAnimationMode;
 
         try {
-            font = new ResourceLocation(
+            font = ResourceLocation.parse(
                     GsonHelper.getAsString(json, "font", SoulsMessageBannersConfig.DEFAULT_FONT.get())
             );
         } catch (Exception e) {
             LOGGER.warn("Invalid font '{}', using default.",
                     GsonHelper.getAsString(json, "font", SoulsMessageBannersConfig.DEFAULT_FONT.get()), e);
-            font = new ResourceLocation(SoulsMessageBannersConfig.DEFAULT_FONT.get());
+            font = ResourceLocation.parse(SoulsMessageBannersConfig.DEFAULT_FONT.get());
         }
 
         if (json.has("sound")) {
             String soundKey = GsonHelper.getAsString(json, "sound");
 
             try {
-                ResourceLocation soundId = new ResourceLocation(soundKey);
-                sound = ForgeRegistries.SOUND_EVENTS.getValue(soundId);
+                ResourceLocation soundId = ResourceLocation.parse(soundKey);
+                sound = BuiltInRegistries.SOUND_EVENT.get(soundId);
 
                 if (sound == null) {
                     LOGGER.warn("Unknown sound '{}', using default.", soundKey);
@@ -100,7 +100,7 @@ public record BannerStyle(
                 GsonHelper.getAsFloat(banner, "opacity", 0.5f),
                 GsonHelper.getAsFloat(text, "opacity", 0.8f),
                 GsonHelper.getAsBoolean(text, "autoscale", SoulsMessageBannersConfig.TEXT_AUTOSCALE.get()),
-                GsonHelper.getAsFloat(text, "scale", SoulsMessageBannersConfig.DEFAULT_TEXT_SCALE.get()),
+                GsonHelper.getAsFloat(text, "scale", SoulsMessageBannersConfig.DEFAULT_TEXT_SCALE.get().floatValue()),
                 GsonHelper.getAsFloat(text, "x", 0f),
                 GsonHelper.getAsFloat(text, "y", 0f),
                 GsonHelper.getAsInt(text_color, "red", 255),
