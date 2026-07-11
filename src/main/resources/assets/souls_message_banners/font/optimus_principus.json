@@ -3,7 +3,7 @@
         {
             "type": "ttf",
             "file": "souls_message_banners:optimus_principus.ttf",
-            "shift": [-0.5, -1.5],
+            "shift": [0.0, -1.5],
             "size": 20.0,
             "oversample": 6.0,
             "skip": ""

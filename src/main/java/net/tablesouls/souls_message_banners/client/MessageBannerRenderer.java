@@ -68,7 +68,10 @@ public class MessageBannerRenderer implements IGuiOverlay {
         // animates the ghost text
         pushTextTransform(guiGraphics, style, x, y, textScale, textScale);
         guiGraphics.pose().pushPose();
+
+        guiGraphics.pose().translate(0, textY, 0);
         guiGraphics.pose().scale(ghostTextScale, ghostTextScale, 1f);
+        guiGraphics.pose().translate(0, -textY, 0);
 
         drawSpacedText(guiGraphics, font, message, 0,  textY, ghostTextColor, ghostTextSpacing);
 
