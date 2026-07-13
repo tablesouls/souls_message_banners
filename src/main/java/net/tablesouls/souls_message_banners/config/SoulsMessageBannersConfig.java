@@ -24,6 +24,8 @@ public class SoulsMessageBannersConfig {
     public static final ForgeConfigSpec.ConfigValue<String> DEFAULT_SOUND;
     public static final ForgeConfigSpec.ConfigValue<String> DEFAULT_FONT;
 
+    public static final ForgeConfigSpec.BooleanValue ENTITY_FELLED_ALL;
+
     static {
         COMMON_BUILDER.push("Common Config");
         COMMON_BUILDER.comment("Triggers").push("triggers");
@@ -51,6 +53,13 @@ public class SoulsMessageBannersConfig {
                 .comment("Banner for activating waystones [Waystones Mod]")
                 .define("waystones_activate", true);
         COMMON_BUILDER.pop();
+
+        COMMON_BUILDER.comment("Fun").push("fun");
+        ENTITY_FELLED_ALL = COMMON_BUILDER
+                .comment("Make ENTITY FELLED banners appear to all entity deaths")
+                .define("entity_felled_all", false);
+        COMMON_BUILDER.pop();
+
 
         COMMON_BUILDER.pop();
         COMMON_SPEC = COMMON_BUILDER.build();
