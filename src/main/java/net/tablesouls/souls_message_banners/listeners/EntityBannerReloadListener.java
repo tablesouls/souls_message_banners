@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -43,9 +44,14 @@ public class EntityBannerReloadListener extends SimpleJsonResourceReloadListener
                     GsonHelper.getAsString(json, "style")
             );
 
+            JsonElement message = json.has("message")
+                    ? json.get("message")
+                    : null;
+
             int priority = GsonHelper.getAsInt(json, "priority", 0);
-            int radius = GsonHelper.getAsInt(json, "radius", 32);
+            boolean killer = GsonHelper.getAsBoolean(json, "killer", false);
             boolean dimension = GsonHelper.getAsBoolean(json, "dimension", false);
+            int radius = GsonHelper.getAsInt(json, "radius", 32);
 
             JsonArray targets = GsonHelper.getAsJsonArray(json, "targets");
 
@@ -61,7 +67,9 @@ public class EntityBannerReloadListener extends SimpleJsonResourceReloadListener
                             null,
                             tag,
                             style,
+                            message,
                             priority,
+                            killer,
                             dimension,
                             radius
                     ));
@@ -71,7 +79,9 @@ public class EntityBannerReloadListener extends SimpleJsonResourceReloadListener
                             ResourceLocation.parse(target),
                             null,
                             style,
+                            message,
                             priority,
+                            killer,
                             dimension,
                             radius
                     ));

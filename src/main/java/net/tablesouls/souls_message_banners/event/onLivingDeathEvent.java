@@ -1,8 +1,11 @@
 package net.tablesouls.souls_message_banners.event;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -11,6 +14,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.tablesouls.souls_message_banners.SoulsMessageBanners;
 import net.tablesouls.souls_message_banners.api.MessageBannerAPI;
+import net.tablesouls.souls_message_banners.assets.BannerStyleManager;
 import net.tablesouls.souls_message_banners.config.SoulsMessageBannersConfig;
 import net.tablesouls.souls_message_banners.data.EntityBannerEntry;
 import net.tablesouls.souls_message_banners.data.EntityBannerManager;
@@ -21,35 +25,62 @@ public class onLivingDeathEvent {
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
-        if (!SoulsMessageBannersConfig.ENTITY_FELLLED.get()) {
-            return;
-        }
-
+        if (!SoulsMessageBannersConfig.ENTITY_FELLLED.get()) return;
         LivingEntity entity = event.getEntity();
+        Entity sourceEntity = event.getSource().getEntity();
+        String entityDisplayName = entity.getDisplayName().getString().toUpperCase();
         Level level = entity.level();
 
-        if (!(level instanceof ServerLevel serverLevel)) {
-            return;
-        }
+        if (!(level instanceof ServerLevel serverLevel)) return;
 
         EntityBannerEntry entry = EntityBannerManager.get(entity.getType());
+        Component message = Component.translatable(
+                "souls_message_banners.message.entity_felled",
+                entityDisplayName
+        );
+
         if (entry == null) {
+            if (SoulsMessageBannersConfig.ENTITY_FELLED_ALL.get()) {
+                if (sourceEntity instanceof ServerPlayer player ) {
+                    MessageBannerAPI.send(player, message, BannerStyleManager.DEFAULT);
+                }
+            }
             return;
         }
 
-        Component message = Component.translatable(
-                "souls_message_banners.message.entity_felled",
-                entity.getDisplayName().getString().toUpperCase()
-        );
+        Component entryMessage = Component.empty();
+        ResourceLocation entryStyle = entry.style();
 
-        if (entry.dimension()) {
+        if (entry.message() != null) {
+            entryMessage = Component.Serializer.fromJson(
+                    entry.message(),
+                    serverLevel.registryAccess()
+            );
+        }
+
+        if (!entryMessage.equals(Component.empty())) {
+            if (entryMessage.getContents() instanceof TranslatableContents contents) {
+                message = Component.translatable(
+                        contents.getKey(),
+                        entityDisplayName
+                );
+            } else {
+                message = entryMessage;
+            }
+        }
+
+        if (entry.killer()) {
+            if (sourceEntity instanceof ServerPlayer player) {
+                MessageBannerAPI.send(player, message, entryStyle);
+            }
+        } else if (entry.dimension()) {
             for (ServerPlayer player : serverLevel.players()) {
-                MessageBannerAPI.send(player, message, entry.style());
+                MessageBannerAPI.send(player, message, entryStyle);
             }
         } else {
             for (Player player : EntityProximityHelper.getPlayersNearby(entity, entry.radius())) {
-                MessageBannerAPI.send(player, message, entry.style());
+                MessageBannerAPI.send(player, message, entryStyle);
             }
         }
-    }
+    };
 }
