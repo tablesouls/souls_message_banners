@@ -1,0 +1,15 @@
+{
+  "targets": [".*"],
+  "apotheosis_rarities": [
+    "apotheosis:common",
+    "apotheosis:uncommon",
+    "apotheosis:rare",
+    "apotheosis:epic",
+    "apotheosis:mythic",
+    "apotheosis:ancient",
+    "apotheosis:immortal"
+  ],
+  "style": "souls_message_banners:apotheosis_felled",
+  "priority": -1,
+  "enabled": true
+}

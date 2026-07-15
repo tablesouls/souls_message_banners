@@ -24,8 +24,6 @@ public class SoulsMessageBannersConfig {
     public static final ModConfigSpec.ConfigValue<String> DEFAULT_SOUND;
     public static final ModConfigSpec.ConfigValue<String> DEFAULT_FONT;
 
-    public static final ModConfigSpec.BooleanValue ENTITY_FELLED_ALL;
-
     static {
         COMMON_BUILDER.push("Common Config");
         COMMON_BUILDER.comment("Triggers").push("triggers");
@@ -54,12 +52,6 @@ public class SoulsMessageBannersConfig {
                 .define("waystones_activate", true);
         COMMON_BUILDER.pop();
 
-        COMMON_BUILDER.comment("Fun").push("fun");
-        ENTITY_FELLED_ALL = COMMON_BUILDER
-                .comment("Make ENTITY FELLED banners appear to all entity deaths")
-                .define("entity_felled_all", false);
-        COMMON_BUILDER.pop();
-
         COMMON_BUILDER.pop();
         COMMON_SPEC = COMMON_BUILDER.build();
 
@@ -82,7 +74,7 @@ public class SoulsMessageBannersConfig {
 
         DEFAULT_TEXT_SCALE = CLIENT_BUILDER
                 .comment("Default default text scale")
-                .define("default_text_scale", 2.0);
+                .define("default_text_scale", 3.5);
 
         DEFAULT_SOUND = CLIENT_BUILDER
                 .comment("Default sound")

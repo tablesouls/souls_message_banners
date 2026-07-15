@@ -1,0 +1,10 @@
+{
+  "targets": [".*"],
+  "message": {
+    "translate": "souls_message_banners.message.entity_felled"
+  },
+  "style": "souls_message_banners:entity_felled_all",
+  "killer": true,
+  "priority": -1,
+  "enabled": false
+}

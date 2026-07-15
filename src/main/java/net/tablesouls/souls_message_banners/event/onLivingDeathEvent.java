@@ -27,27 +27,20 @@ public class onLivingDeathEvent {
     public static void onLivingDeath(LivingDeathEvent event) {
         if (!SoulsMessageBannersConfig.ENTITY_FELLLED.get()) return;
         LivingEntity entity = event.getEntity();
-        Entity sourceEntity = event.getSource().getEntity();
+        Entity killCredit = entity.getKillCredit();
         String entityDisplayName = entity.getDisplayName().getString().toUpperCase();
         Level level = entity.level();
 
         if (!(level instanceof ServerLevel serverLevel)) return;
 
-        EntityBannerEntry entry = EntityBannerManager.get(entity.getType());
+        EntityBannerEntry entry = EntityBannerManager.get(entity);
+
         Component message = Component.translatable(
                 "souls_message_banners.message.entity_felled",
                 entityDisplayName
         );
 
-        if (entry == null) {
-            if (SoulsMessageBannersConfig.ENTITY_FELLED_ALL.get()) {
-                if (sourceEntity instanceof ServerPlayer player ) {
-                    MessageBannerAPI.send(player, message, BannerStyleManager.DEFAULT);
-                }
-            }
-            return;
-        }
-
+        if (entry == null) return;
         Component entryMessage = Component.empty();
         ResourceLocation entryStyle = entry.style();
 
@@ -70,7 +63,7 @@ public class onLivingDeathEvent {
         }
 
         if (entry.killer()) {
-            if (sourceEntity instanceof ServerPlayer player) {
+            if (killCredit instanceof ServerPlayer player) {
                 MessageBannerAPI.send(player, message, entryStyle);
             }
         } else if (entry.dimension()) {

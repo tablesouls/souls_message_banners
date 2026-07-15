@@ -3,5 +3,6 @@
     "minecraft:ender_dragon"
   ],
   "style": "souls_message_banners:dragon_felled",
-  "dimension": true
+  "dimension": true,
+  "priority": 1
 }
