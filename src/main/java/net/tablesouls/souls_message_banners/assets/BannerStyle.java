@@ -26,6 +26,11 @@ public record BannerStyle(
         float ghostTextOpacity,
         float ghostTextStartScale,
         float ghostTextEndScale,
+        float ghostTextOffsetX,
+        float ghostTextOffsetY,
+        int ghostTextRed,
+        int ghostTextGreen,
+        int ghostTextBlue,
         SpacingAnimationMode spacingAnimationMode,
         float spacingModifier,
         int fadeInTicks,
@@ -48,6 +53,7 @@ public record BannerStyle(
         JsonObject text = GsonHelper.getAsJsonObject(json, "text", new JsonObject());
         JsonObject text_color = GsonHelper.getAsJsonObject(text, "color", new JsonObject());
         JsonObject ghost_text = GsonHelper.getAsJsonObject(json, "ghost_text", new JsonObject());
+        JsonObject ghost_text_color = GsonHelper.getAsJsonObject(ghost_text, "ghost_text_color", new JsonObject());
         JsonObject animation = GsonHelper.getAsJsonObject(json, "animation", new JsonObject());
 
         SoundEvent sound = null;
@@ -55,20 +61,20 @@ public record BannerStyle(
         SpacingAnimationMode spacingAnimationMode;
 
         try {
-            font = new ResourceLocation(
+            font = ResourceLocation.parse(
                     GsonHelper.getAsString(json, "font", SoulsMessageBannersConfig.DEFAULT_FONT.get())
             );
         } catch (Exception e) {
             LOGGER.warn("Invalid font '{}', using default.",
                     GsonHelper.getAsString(json, "font", SoulsMessageBannersConfig.DEFAULT_FONT.get()), e);
-            font = new ResourceLocation(SoulsMessageBannersConfig.DEFAULT_FONT.get());
+            font = ResourceLocation.parse(SoulsMessageBannersConfig.DEFAULT_FONT.get());
         }
 
         if (json.has("sound")) {
             String soundKey = GsonHelper.getAsString(json, "sound");
 
             try {
-                ResourceLocation soundId = new ResourceLocation(soundKey);
+                ResourceLocation soundId = ResourceLocation.parse(soundKey);
                 sound = ForgeRegistries.SOUND_EVENTS.getValue(soundId);
 
                 if (sound == null) {
@@ -92,6 +98,14 @@ public record BannerStyle(
             spacingAnimationMode = SpacingAnimationMode.HOLD;
         }
 
+        int textRed = GsonHelper.getAsInt(text_color, "red", 255);
+        int textGreen = GsonHelper.getAsInt(text_color, "green", 170);
+        int textBlue = GsonHelper.getAsInt(text_color, "blue", 0);
+
+        int ghostTextRed = GsonHelper.getAsInt(ghost_text_color, "red", textRed);
+        int ghostTextGreen = GsonHelper.getAsInt(ghost_text_color, "green", textGreen);
+        int ghostTextBlue = GsonHelper.getAsInt(ghost_text_color, "blue", textBlue);
+
         return new BannerStyle(
                 GsonHelper.getAsBoolean(json, "enabled", true),
                 font,
@@ -101,15 +115,20 @@ public record BannerStyle(
                 GsonHelper.getAsFloat(text, "opacity", 0.8f),
                 GsonHelper.getAsBoolean(text, "autoscale", SoulsMessageBannersConfig.TEXT_AUTOSCALE.get()),
                 GsonHelper.getAsFloat(text, "scale", SoulsMessageBannersConfig.DEFAULT_TEXT_SCALE.get()),
-                GsonHelper.getAsFloat(text, "x", 0f),
-                GsonHelper.getAsFloat(text, "y", 0f),
-                GsonHelper.getAsInt(text_color, "red", 255),
-                GsonHelper.getAsInt(text_color, "green", 170),
-                GsonHelper.getAsInt(text_color, "blue", 0),
+                GsonHelper.getAsFloat(text, "x", 0.0f),
+                GsonHelper.getAsFloat(text, "y", 0.0f),
+                textRed,
+                textGreen,
+                textBlue,
 
                 GsonHelper.getAsFloat(ghost_text, "opacity", 0.5f),
                 GsonHelper.getAsFloat(ghost_text, "start_scale", 0.5f),
                 GsonHelper.getAsFloat(ghost_text, "end_scale", 1.1f),
+                GsonHelper.getAsFloat(ghost_text, "x", 0.0f),
+                GsonHelper.getAsFloat(ghost_text, "y", 0.0f),
+                ghostTextRed,
+                ghostTextGreen,
+                ghostTextBlue,
                 spacingAnimationMode,
                 GsonHelper.getAsFloat(ghost_text, "spacing_modifier", 0.06f),
 

@@ -24,7 +24,7 @@ public class DisplayTitleMixin {
         ci.cancel();
 
         DistExecutor.safeRunWhenOn(Dist.CLIENT, () ->() -> {
-            ResourceLocation styleId = new ResourceLocation(SoulsMessageBanners.MODID, "bonfire_lit");
+            ResourceLocation styleId = ResourceLocation.fromNamespaceAndPath(SoulsMessageBanners.MODID, "bonfire_lit");
             BannerStyle style = BannerStyleManager.get(styleId);
 
             MessageBannerHelper.show(Component.translatable("souls_message_banners.message.bonfire_lit"),style);

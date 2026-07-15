@@ -38,56 +38,12 @@ public class EntityBannerReloadListener extends SimpleJsonResourceReloadListener
     ) {
         EntityBannerManager.clear();
 
-        for (JsonElement element : objects.values()) {
-
-            JsonObject json = element.getAsJsonObject();
-
-            ResourceLocation style = new ResourceLocation(
-                    GsonHelper.getAsString(json, "style")
-            );
-
-            JsonElement message = json.has("message")
-                    ? json.get("message")
-                    : null;
-
-            int priority = GsonHelper.getAsInt(json, "priority", 0);
-            boolean killer = GsonHelper.getAsBoolean(json, "killer", false);
-            boolean dimension = GsonHelper.getAsBoolean(json, "dimension", false);
-            int radius = GsonHelper.getAsInt(json, "radius", 32);
-
-            JsonArray targets = GsonHelper.getAsJsonArray(json, "targets");
-
-            for (JsonElement targetElement : targets) {
-                String target = targetElement.getAsString();
-
-                if (target.startsWith("#")) {
-                    TagKey<EntityType<?>> tag = TagKey.create(
-                            Registries.ENTITY_TYPE,
-                            new ResourceLocation(target.substring(1))
-                    );
-                    EntityBannerManager.add(new EntityBannerEntry(
-                            null,
-                            tag,
-                            style,
-                            message,
-                            priority,
-                            killer,
-                            dimension,
-                            radius
-                    ));
-
-                } else {
-                    EntityBannerManager.add(new EntityBannerEntry(
-                            new ResourceLocation(target),
-                            null,
-                            style,
-                            message,
-                            priority,
-                            killer,
-                            dimension,
-                            radius
-                    ));
-                }
+        for (var entry : objects.entrySet()) {
+            ResourceLocation id = entry.getKey();
+            try {
+                EntityBannerManager.addAll(EntityBannerEntry.fromJson(entry.getValue().getAsJsonObject()));
+            } catch (Exception e) {
+                LOGGER.error("Failed to load an entity banner entry: {}", e.getMessage());
             }
         }
 

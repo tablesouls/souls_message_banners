@@ -9,6 +9,6 @@ public class ModRegistries {
 
     public static final DeferredRegister<BannerStyle> BANNER_STYLES =
             DeferredRegister.create(
-                    new ResourceLocation(SoulsMessageBanners.MODID, "banner_styles"),
+                    ResourceLocation.fromNamespaceAndPath(SoulsMessageBanners.MODID, "banner_styles"),
                     SoulsMessageBanners.MODID);
 }

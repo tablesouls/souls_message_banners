@@ -21,11 +21,11 @@ public class SoulsMessageBanners
 {
     public static final String MODID = "souls_message_banners";
 
-    public SoulsMessageBanners() {
+    public SoulsMessageBanners(FMLJavaModLoadingContext context) {
         NetworkHandler.register();
-        ModSounds.SOUND_EVENTS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SoulsMessageBannersConfig.COMMON_SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, SoulsMessageBannersConfig.CLIENT_SPEC);
+        ModSounds.SOUND_EVENTS.register(context.getModEventBus());
+        context.registerConfig(ModConfig.Type.COMMON, SoulsMessageBannersConfig.COMMON_SPEC);
+        context.registerConfig(ModConfig.Type.CLIENT, SoulsMessageBannersConfig.CLIENT_SPEC);
 
         if (ModList.get().isLoaded("bonfires")) {
             MinecraftForge.EVENT_BUS.register(BonfiresCompat.class);

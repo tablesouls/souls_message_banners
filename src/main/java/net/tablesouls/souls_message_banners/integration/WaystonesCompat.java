@@ -18,6 +18,6 @@ public class WaystonesCompat {
         MessageBannerAPI.send(
                 serverPlayer,
                 Component.translatable("souls_message_banners.message.waystone_activated"),
-                new ResourceLocation(SoulsMessageBanners.MODID, "waystone_activated"));
+                ResourceLocation.fromNamespaceAndPath(SoulsMessageBanners.MODID, "waystone_activated"));
     }
 }

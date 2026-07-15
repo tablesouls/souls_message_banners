@@ -47,10 +47,10 @@ public class RaidStatusMixin {
         Component message;
 
         if (raid.isVictory()) {
-            style = new ResourceLocation(SoulsMessageBanners.MODID, "raid_victory");
+            style = ResourceLocation.fromNamespaceAndPath(SoulsMessageBanners.MODID, "raid_victory");
             message = Component.translatable("souls_message_banners.message.raid_victory");
         } else if (raid.isLoss()) {
-            style = new ResourceLocation(SoulsMessageBanners.MODID, "raid_loss");
+            style = ResourceLocation.fromNamespaceAndPath(SoulsMessageBanners.MODID, "raid_loss");
             message = Component.translatable("souls_message_banners.message.raid_loss");
         } else {
             return;

@@ -9,7 +9,7 @@
   "text": {
     "opacity": 0.9,
     "autoscale": true,
-    "scale": 2.0,
+    "scale": 3.5,
     "x": 0.0,
     "y": 0.0,
     "color": {
@@ -22,6 +22,13 @@
     "opacity": 0.8,
     "start_scale": 0.5,
     "end_scale": 1.1,
+    "x": 0.0,
+    "y": 0.0,
+    "color": {
+      "red": 250,
+      "green": 170,
+      "blue": 0
+    },
     "spacing_animation_mode": "HOLD",
     "spacing_modifier": 0.06
   },

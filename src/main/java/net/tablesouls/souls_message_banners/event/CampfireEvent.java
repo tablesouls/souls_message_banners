@@ -42,7 +42,7 @@ public class CampfireEvent {
                     if (isLitAfter) {
                         MessageBannerAPI.send(player,
                                 Component.translatable("souls_message_banners.message.campfire_lit"),
-                                new ResourceLocation(SoulsMessageBanners.MODID, "campfire_lit"));
+                                ResourceLocation.fromNamespaceAndPath(SoulsMessageBanners.MODID, "campfire_lit"));
                     }
                 }
             }));

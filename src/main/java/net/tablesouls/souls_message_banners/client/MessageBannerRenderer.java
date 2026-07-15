@@ -53,29 +53,22 @@ public class MessageBannerRenderer implements IGuiOverlay {
 
         int textX = -(int)(textWidth / 2f) ;
         int textY = -(int)(font.lineHeight / 2f);
-        int textRgb = (style.textRed() << 16) | (style.textGreen() << 8) | style.textBlue();
 
         // ghost text properties
         int ghostTextAlpha = (int)  (alphaInt * style.ghostTextOpacity());
         if (ghostTextAlpha < 4) ghostTextAlpha = 4;
 
-        int ghostTextColor = (ghostTextAlpha << 24) | textRgb;
+        int ghostTextRgb = (style.ghostTextRed() << 16) | (style.ghostTextGreen() << 8) | style.ghostTextBlue();
+        int ghostTextColor = (ghostTextAlpha << 24) | ghostTextRgb;
         float spacingMultiplier = style.spacingModifier();
 
         float ghostTextScale = MessageBannerHelper.getGhostTextScale(smoothTicks, style.ghostTextStartScale(), style.ghostTextEndScale());
         float ghostTextSpacing = MessageBannerHelper.getSpacingAnimation(smoothTicks, spacingMultiplier);
+        float ghostTextScaling = textScale * ghostTextScale;
 
         // animates the ghost text
-        pushTextTransform(guiGraphics, style, x, y, textScale, textScale);
-        guiGraphics.pose().pushPose();
-
-        guiGraphics.pose().translate(0, textY, 0);
-        guiGraphics.pose().scale(ghostTextScale, ghostTextScale, 1f);
-        guiGraphics.pose().translate(0, -textY, 0);
-
-        drawSpacedText(guiGraphics, font, message, 0,  textY, ghostTextColor, ghostTextSpacing);
-
-        guiGraphics.pose().popPose(); // ghost scaling
+        pushTextTransform(guiGraphics, style, x, y, ghostTextScaling, ghostTextScaling);
+        drawSpacedText(guiGraphics, font, message, style.ghostTextOffsetX(),  textY - style.ghostTextOffsetY(), ghostTextColor, ghostTextSpacing);
         guiGraphics.pose().popPose(); // ghost text transform
 
         //banner properties
@@ -90,6 +83,8 @@ public class MessageBannerRenderer implements IGuiOverlay {
         //main text properties
         int textAlpha = (int)  (alphaInt * style.textOpacity());
         if (textAlpha < 4) textAlpha = 4;
+
+        int textRgb = (style.textRed() << 16) | (style.textGreen() << 8) | style.textBlue();
         int textColor = (textAlpha << 24) | textRgb;
 
         // animates the main text
@@ -109,11 +104,11 @@ public class MessageBannerRenderer implements IGuiOverlay {
             float h
     ) {
         guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate(x + style.textOffsetX(), y + style.textOffsetY(), 0);
+        guiGraphics.pose().translate(x + style.textOffsetX(), y - style.textOffsetY(), 0);
         guiGraphics.pose().scale(w, h, 1f);
     }
 
-    private void drawSpacedText(GuiGraphics guiGraphics, Font font, Component message, int x, int y, int color, float spacingMultiplier) {
+    private void drawSpacedText(GuiGraphics guiGraphics, Font font, Component message, float x, float y, int color, float spacingMultiplier) {
         if (MessageBannerHelper.getCachedChars() == null) {MessageBannerHelper.computeCharCache(font, message);}
 
         FormattedCharSequence[] chars = MessageBannerHelper.getCachedChars();

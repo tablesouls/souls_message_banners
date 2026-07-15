@@ -24,8 +24,6 @@ public class SoulsMessageBannersConfig {
     public static final ForgeConfigSpec.ConfigValue<String> DEFAULT_SOUND;
     public static final ForgeConfigSpec.ConfigValue<String> DEFAULT_FONT;
 
-    public static final ForgeConfigSpec.BooleanValue ENTITY_FELLED_ALL;
-
     static {
         COMMON_BUILDER.push("Common Config");
         COMMON_BUILDER.comment("Triggers").push("triggers");
@@ -54,13 +52,6 @@ public class SoulsMessageBannersConfig {
                 .define("waystones_activate", true);
         COMMON_BUILDER.pop();
 
-        COMMON_BUILDER.comment("Fun").push("fun");
-        ENTITY_FELLED_ALL = COMMON_BUILDER
-                .comment("Make ENTITY FELLED banners appear to all entity deaths")
-                .define("entity_felled_all", false);
-        COMMON_BUILDER.pop();
-
-
         COMMON_BUILDER.pop();
         COMMON_SPEC = COMMON_BUILDER.build();
 
@@ -83,7 +74,7 @@ public class SoulsMessageBannersConfig {
 
         DEFAULT_TEXT_SCALE = CLIENT_BUILDER
                 .comment("Default default text scale")
-                .define("default_text_scale", 2.0f);
+                .define("default_text_scale", 3.5f);
 
         DEFAULT_SOUND = CLIENT_BUILDER
                 .comment("Default sound")
@@ -105,11 +96,11 @@ public class SoulsMessageBannersConfig {
     }
 
     public static SoundEvent getSound() {
-        ResourceLocation id = new ResourceLocation(DEFAULT_SOUND.get());
+        ResourceLocation id = ResourceLocation.parse(DEFAULT_SOUND.get());
         return ForgeRegistries.SOUND_EVENTS.getValue(id);
     }
 
     public static ResourceLocation getFont() {
-        return new ResourceLocation(DEFAULT_FONT.get());
+        return ResourceLocation.parse(DEFAULT_FONT.get());
     }
 }
