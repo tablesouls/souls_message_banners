@@ -94,6 +94,7 @@ dependencies {
     compileOnly fg.deobf("dev.latvian.mods:kubejs-forge:2001.6.5-build.26")
     compileOnly fg.deobf("dev.architectury:architectury-forge:9.2.14")
     compileOnly fg.deobf("curse.maven:bonfires-255347:7207898")
+    compileOnly fg.deobf("maven.modrinth:aCiQlU58:krimvV2q")
 }
 
 tasks.named('processResources', ProcessResources).configure {

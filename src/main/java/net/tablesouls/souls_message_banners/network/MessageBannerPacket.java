@@ -6,9 +6,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.network.NetworkEvent;
 import net.tablesouls.souls_message_banners.assets.BannerStyle;
 import net.tablesouls.souls_message_banners.assets.BannerStyleManager;
+import net.tablesouls.souls_message_banners.integration.TwemojiCompat;
 import net.tablesouls.souls_message_banners.util.MessageBannerHelper;
 import org.slf4j.Logger;
 
@@ -42,7 +44,11 @@ public class MessageBannerPacket {
                 return;
             }
 
-            MessageBannerHelper.show(packet.message, style);
+            Component message = packet.message;
+            if (ModList.get().isLoaded("twemoji")) {
+                message = TwemojiCompat.rewrite(message);
+            }
+            MessageBannerHelper.show(message, style);
         });
     }
 }
