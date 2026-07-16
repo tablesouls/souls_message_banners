@@ -11,5 +11,5 @@
     "translate": "souls_message_banners.message.entity_felled"
   },
   "style": "souls_message_banners:entity_felled",
-  "priority": 0
+  "priority": -1
 }

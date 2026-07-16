@@ -5,6 +5,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import net.tablesouls.souls_message_banners.assets.BannerStyle;
+import org.checkerframework.checker.formatter.qual.Format;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MessageBannerHelper {
     private static Component message = null;
@@ -25,16 +29,20 @@ public class MessageBannerHelper {
     }
 
     public static void computeCharCache(Font font, Component message) {
-        String text = message.getString();
-        int length = text.length();
+        List<FormattedCharSequence> chars = new ArrayList<>();
+        List<Float> widths = new ArrayList<>();
 
-        cachedCharWidths = new float[length];
-        cachedChars = new FormattedCharSequence[length];
+        message.getVisualOrderText().accept((index, style, codePoint) -> {
+            FormattedCharSequence single = FormattedCharSequence.codepoint(codePoint, style);
+            chars.add(single);
+            widths.add((float) font.width(single));
+            return  true;
+        });
 
-        for (int i = 0; i < length; i++) {
-            String charStr = String.valueOf(text.charAt(i));
-            cachedChars[i] = Component.literal(charStr).setStyle(message.getStyle()).getVisualOrderText();
-            cachedCharWidths[i] = font.width(cachedChars[i]);
+        cachedChars = chars.toArray(new FormattedCharSequence[0]);
+        cachedCharWidths = new float[widths.size()];
+        for (int i = 0; i < widths.size(); i++) {
+            cachedCharWidths[i] = widths.get(i);
         }
     }
 

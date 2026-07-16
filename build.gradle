@@ -105,6 +105,7 @@ dependencies {
     compileOnly "dev.latvian.mods:kubejs-neoforge:${project.kubejs_version}"
     compileOnly "dev.architectury:architectury-neoforge:${project.architectury_version}"
     compileOnly "curse.maven:bonfires-255347:7207937"
+    compileOnly "maven.modrinth:aCiQlU58:krimvV2q"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

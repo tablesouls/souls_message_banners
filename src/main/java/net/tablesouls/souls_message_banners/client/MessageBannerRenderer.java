@@ -72,9 +72,11 @@ public class MessageBannerRenderer implements LayeredDraw.Layer {
         float ghostTextScaling = textScale * ghostTextScale;
 
         // animates the ghost text
-        pushTextTransform(guiGraphics, style, x, y, ghostTextScaling, ghostTextScaling);
-        drawSpacedText(guiGraphics, font, message, style.ghostTextOffsetX(),  textY - style.ghostTextOffsetY(), ghostTextColor, ghostTextSpacing);
+        RenderSystem.setShaderColor(1f, 1f, 1f, ghostTextAlpha  / 255f);
+        pushTextTransform(guiGraphics, style, x, y, style.ghostTextOffsetX(), style.ghostTextOffsetY(), ghostTextScaling, ghostTextScaling);
+        drawSpacedText(guiGraphics, font, message, 0,  textY, ghostTextRgb, ghostTextSpacing);
         guiGraphics.pose().popPose(); // ghost text transform
+        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
         //banner properties
         int baseAlpha = (int) (alphaInt * style.bannerOpacity());
@@ -93,9 +95,11 @@ public class MessageBannerRenderer implements LayeredDraw.Layer {
         int textColor = (textAlpha << 24) | textRgb;
 
         // animates the main text
-        pushTextTransform(guiGraphics, style, x, y, textScale, textScale);
-        guiGraphics.drawString(font, message, textX, textY, textColor, false);
+        RenderSystem.setShaderColor(1f, 1f, 1f, textAlpha / 255f);
+        pushTextTransform(guiGraphics, style, x, y, style.textOffsetX(), style.textOffsetY(), textScale, textScale);
+        guiGraphics.drawString(font, message, textX, textY, textRgb, false);
         guiGraphics.pose().popPose(); // main text transform
+        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
 
         RenderSystem.disableBlend();
     }
@@ -105,11 +109,13 @@ public class MessageBannerRenderer implements LayeredDraw.Layer {
             BannerStyle style,
             float x,
             float y,
+            float offsetX,
+            float offsetY,
             float w,
             float h
     ) {
         guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate(x + style.textOffsetX(), y - style.textOffsetY(), 0);
+        guiGraphics.pose().translate(x + offsetX, y - offsetY, 0);
         guiGraphics.pose().scale(w, h, 1f);
     }
 
