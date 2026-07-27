@@ -1,4 +1,4 @@
-package net.tablesouls.souls_message_banners.integration.kubejs;
+package net.tablesouls.souls_message_banners.compat.kubejs;
 
 import dev.latvian.mods.kubejs.plugin.KubeJSPlugin;
 import dev.latvian.mods.kubejs.script.BindingRegistry;

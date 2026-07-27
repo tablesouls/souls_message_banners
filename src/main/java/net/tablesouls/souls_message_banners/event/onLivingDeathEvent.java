@@ -25,7 +25,7 @@ public class onLivingDeathEvent {
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {
-        if (!SoulsMessageBannersConfig.ENTITY_FELLLED.get()) return;
+        if (!SoulsMessageBannersConfig.TRIGGERS.ENTITY_FELLLED.get()) return;
         LivingEntity entity = event.getEntity();
         Entity killCredit = entity.getKillCredit();
         String entityDisplayName = entity.getDisplayName().getString().toUpperCase();

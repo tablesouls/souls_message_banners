@@ -60,14 +60,15 @@ public record BannerStyle(
         ResourceLocation font;
         SpacingAnimationMode spacingAnimationMode;
 
+
         try {
             font = ResourceLocation.parse(
-                    GsonHelper.getAsString(json, "font", SoulsMessageBannersConfig.DEFAULT_FONT.get())
+                    GsonHelper.getAsString(json, "font", SoulsMessageBannersConfig.APPEARANCE.DEFAULT_FONT.get())
             );
         } catch (Exception e) {
             LOGGER.warn("Invalid font '{}', using default.",
-                    GsonHelper.getAsString(json, "font", SoulsMessageBannersConfig.DEFAULT_FONT.get()), e);
-            font = ResourceLocation.parse(SoulsMessageBannersConfig.DEFAULT_FONT.get());
+                    GsonHelper.getAsString(json, "font", SoulsMessageBannersConfig.APPEARANCE.DEFAULT_FONT.get()), e);
+            font = ResourceLocation.parse(SoulsMessageBannersConfig.APPEARANCE.DEFAULT_FONT.get());
         }
 
         if (json.has("sound")) {
@@ -86,7 +87,7 @@ public record BannerStyle(
         }
 
         if (sound == null) {
-            sound = SoulsMessageBannersConfig.getSound();
+            sound = SoulsMessageBannersConfig.APPEARANCE.getSound();
         }
 
         String spacing_animation_mode_name = GsonHelper.getAsString(ghost_text, "spacing_animation_mode", "HOLD").toUpperCase();
@@ -110,11 +111,11 @@ public record BannerStyle(
                 GsonHelper.getAsBoolean(json, "enabled", true),
                 font,
                 sound,
-                GsonHelper.getAsInt(json, "y_offset", SoulsMessageBannersConfig.Y_OFFSET.get()),
+                GsonHelper.getAsInt(json, "offset_y", SoulsMessageBannersConfig.APPEARANCE.OFFSET_Y.get()),
                 GsonHelper.getAsFloat(banner, "opacity", 0.5f),
                 GsonHelper.getAsFloat(text, "opacity", 0.8f),
-                GsonHelper.getAsBoolean(text, "autoscale", SoulsMessageBannersConfig.TEXT_AUTOSCALE.get()),
-                GsonHelper.getAsFloat(text, "scale", SoulsMessageBannersConfig.DEFAULT_TEXT_SCALE.get().floatValue()),
+                GsonHelper.getAsBoolean(text, "autoscale", SoulsMessageBannersConfig.APPEARANCE.TEXT_AUTOSCALE.get()),
+                GsonHelper.getAsFloat(text, "scale", SoulsMessageBannersConfig.APPEARANCE.DEFAULT_TEXT_SCALE.get().floatValue()),
                 GsonHelper.getAsFloat(text, "x", 0.0f),
                 GsonHelper.getAsFloat(text, "y", 0.0f),
                 textRed,

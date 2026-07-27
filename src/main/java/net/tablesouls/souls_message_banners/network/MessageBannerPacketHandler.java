@@ -6,7 +6,7 @@ import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.tablesouls.souls_message_banners.assets.BannerStyle;
 import net.tablesouls.souls_message_banners.assets.BannerStyleManager;
-import net.tablesouls.souls_message_banners.integration.TwemojiCompat;
+import net.tablesouls.souls_message_banners.compat.TwemojiCompat;
 import net.tablesouls.souls_message_banners.util.MessageBannerHelper;
 import org.slf4j.Logger;
 

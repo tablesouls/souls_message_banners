@@ -4,7 +4,9 @@
   "refmap": "souls_message_banners.refmap.json",
   "compatibilityLevel": "JAVA_21",
   "plugin": "net.tablesouls.souls_message_banners.mixin.MixinConfigPlugin",
+  "mixins": [
+    "LightBonfireMixin"
+  ],
   "client": [
-    "DisplayTitleMixin"
   ]
 }

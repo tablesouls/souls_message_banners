@@ -18,7 +18,6 @@ import net.tablesouls.souls_message_banners.config.SoulsMessageBannersConfig;
 
 @EventBusSubscriber(modid = SoulsMessageBanners.MODID)
 public class CampfireEvent {
-
     @SubscribeEvent
     public static void onCampfireInteraction(PlayerInteractEvent.RightClickBlock event) {
         Level level = event.getLevel();
@@ -26,37 +25,27 @@ public class CampfireEvent {
         BlockState state = level.getBlockState(pos);
         Player player = event.getEntity();
 
-        if (level.isClientSide()) {
-            return;
+        if(level.isClientSide()) return;
+
+        if (state.is(BlockTags.CAMPFIRES)) {
+            if (!SoulsMessageBannersConfig.TRIGGERS.CAMPFIRE_LIT.get()) return;
+            
+            boolean wasLit = state.getValue(BlockStateProperties.LIT);
+            if (wasLit) return;
+
+            level.getServer().tell(new TickTask(level.getServer().getTickCount(), () -> {
+                BlockState stateAfter = level.getBlockState(pos);
+
+                if (stateAfter.is(BlockTags.CAMPFIRES)) {
+                    boolean isLitAfter = stateAfter.getValue(BlockStateProperties.LIT);
+
+                    if (isLitAfter) {
+                        MessageBannerAPI.send(player,
+                                Component.translatable("souls_message_banners.message.campfire_lit"),
+                                ResourceLocation.fromNamespaceAndPath(SoulsMessageBanners.MODID, "campfire_lit"));
+                    }
+                }
+            }));
         }
-
-        if (!state.is(BlockTags.CAMPFIRES)) {
-            return;
-        }
-
-        if (!SoulsMessageBannersConfig.CAMPFIRE_LIT.get()) {
-            return;
-        }
-
-        if (state.getValue(BlockStateProperties.LIT)) {
-            return;
-        }
-
-        level.getServer().tell(new TickTask(level.getServer().getTickCount(), () -> {
-            BlockState stateAfter = level.getBlockState(pos);
-
-            if (stateAfter.is(BlockTags.CAMPFIRES)
-                    && stateAfter.getValue(BlockStateProperties.LIT)) {
-
-                MessageBannerAPI.send(
-                        player,
-                        Component.translatable("souls_message_banners.message.campfire_lit"),
-                        ResourceLocation.fromNamespaceAndPath(
-                                SoulsMessageBanners.MODID,
-                                "campfire_lit"
-                        )
-                );
-            }
-        }));
     }
 }

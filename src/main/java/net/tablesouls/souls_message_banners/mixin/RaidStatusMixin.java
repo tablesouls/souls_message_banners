@@ -35,7 +35,7 @@ public class RaidStatusMixin {
     )
     private void smb$onStatusChanged(CallbackInfo ci) {
         if (smb$handledEnd) return;
-        if (!SoulsMessageBannersConfig.RAID_STATUS.get()) return;
+        if (!SoulsMessageBannersConfig.TRIGGERS.RAID_STATUS.get()) return;
 
         Raid raid = (Raid)(Object)this;
         if (!(raid.getLevel() instanceof ServerLevel level)) return;

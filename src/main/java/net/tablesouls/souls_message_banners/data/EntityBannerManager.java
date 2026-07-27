@@ -5,7 +5,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.tablesouls.souls_message_banners.integration.ApotheosisCompat;
+import net.tablesouls.souls_message_banners.compat.ApotheosisCompat;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;

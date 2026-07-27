@@ -6,101 +6,119 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 public class SoulsMessageBannersConfig {
-    public static final ModConfigSpec.Builder COMMON_BUILDER = new ModConfigSpec.Builder();
     public static final ModConfigSpec COMMON_SPEC;
+    public static final Triggers TRIGGERS;
 
-    public static final ModConfigSpec.BooleanValue CAMPFIRE_LIT;
-    public static final ModConfigSpec.BooleanValue BONFIRE_LIT;
-    public static final ModConfigSpec.BooleanValue WAYSTONE_ACTIVATION;
-    public static final ModConfigSpec.BooleanValue ENTITY_FELLLED;
-    public static final ModConfigSpec.BooleanValue RAID_STATUS;
-
-    public static final ModConfigSpec.Builder CLIENT_BUILDER = new ModConfigSpec.Builder();
     public static final ModConfigSpec CLIENT_SPEC;
-
-    public static final ModConfigSpec.ConfigValue<Integer> Y_OFFSET;
-    public static final ModConfigSpec.BooleanValue TEXT_AUTOSCALE;
-    public static final ModConfigSpec.ConfigValue<Double> DEFAULT_TEXT_SCALE;
-    public static final ModConfigSpec.ConfigValue<String> DEFAULT_SOUND;
-    public static final ModConfigSpec.ConfigValue<String> DEFAULT_FONT;
+    public static final Appearance APPEARANCE;
+    public static final ModConfigSpec.BooleanValue HIDE_CROSSHAIR_WHEN_BANNER;
 
     static {
-        COMMON_BUILDER.push("Common Config");
-        COMMON_BUILDER.comment("Triggers").push("triggers");
+        ModConfigSpec.Builder commonBuilder = new ModConfigSpec.Builder();
+        ModConfigSpec.Builder clientBuilder = new ModConfigSpec.Builder();
 
-        CAMPFIRE_LIT = COMMON_BUILDER
-                .comment("Banner for lighting up campfires")
-                .define("campfire_lit", true);
+        TRIGGERS = new Triggers(commonBuilder);
+        COMMON_SPEC = commonBuilder.build();
 
-        ENTITY_FELLLED = COMMON_BUILDER
-                .comment("Banner for fallen entities (entities must be chosen through datapacks).",
-                        "By default, its all bosses tagged with forge:bosses.",
-                        "Special banners are given to the Wither and Ender Dragon.")
-                .define("entity_felled", true);
-
-        RAID_STATUS = COMMON_BUILDER
-                .comment("Banner for either raid victory or loss")
-                .define("raid_status", true);
-
-        COMMON_BUILDER.comment("Compatibility").push("compatibility");
-        BONFIRE_LIT = COMMON_BUILDER
-                .comment("Banner for activating bonfires [Bonfires Mod]")
-                .define("bonfire_lit", true);
-
-        WAYSTONE_ACTIVATION = COMMON_BUILDER
-                .comment("Banner for activating waystones [Waystones Mod]")
-                .define("waystones_activate", true);
-        COMMON_BUILDER.pop();
-
-        COMMON_BUILDER.pop();
-        COMMON_SPEC = COMMON_BUILDER.build();
-
-        CLIENT_BUILDER
+        clientBuilder
                 .comment("Customizations in configs are overwritten by banner styles",
                         "May require reloading",
                         "Change existing banner styles via resourcepacks",
-                        "Choose custom mob death message via datapacks")
-                .push("Client Config");
+                        "Choose custom mob death message via datapacks");
 
-        CLIENT_BUILDER.comment("Appearance").push("appearance");
+        APPEARANCE = new Appearance(clientBuilder);
 
-        Y_OFFSET = CLIENT_BUILDER
-                .comment("Set Y offset of the entire message banner")
-                .define("y_offset", 0);
+        HIDE_CROSSHAIR_WHEN_BANNER = clientBuilder
+                .comment("Should player's crosshair temporarily hide when a message banner is shown")
+                .define("hide_crosshair_when_banner", true);
 
-        TEXT_AUTOSCALE = CLIENT_BUILDER
-                .comment("Should text fit into the screen")
-                .define("text_autoscale", true);
-
-        DEFAULT_TEXT_SCALE = CLIENT_BUILDER
-                .comment("Default default text scale")
-                .define("default_text_scale", 3.5);
-
-        DEFAULT_SOUND = CLIENT_BUILDER
-                .comment("Default sound")
-                .define("default_sound", "souls_message_banners:generic", obj -> {
-                    if (!(obj instanceof String string)) return false;
-                    return ResourceLocation.tryParse(string) != null;
-                });
-
-        DEFAULT_FONT = CLIENT_BUILDER
-                .comment("Default font")
-                .define("default_font", "souls_message_banners:optimus_principus", obj -> {
-                    if (!(obj instanceof String string)) return false;
-                    return ResourceLocation.tryParse(string) != null;
-                });
-        CLIENT_BUILDER.pop();
-
-        CLIENT_BUILDER.pop();
-        CLIENT_SPEC = CLIENT_BUILDER.build();
+        CLIENT_SPEC = clientBuilder.build();
     }
 
-    public static SoundEvent getSound() {
-        ResourceLocation id = ResourceLocation.parse(DEFAULT_SOUND.get());
-        return BuiltInRegistries.SOUND_EVENT.get(id);
+    public static class Triggers {
+        public final ModConfigSpec.BooleanValue CAMPFIRE_LIT;
+        public final ModConfigSpec.BooleanValue BONFIRE_LIT;
+        public final ModConfigSpec.BooleanValue WAYSTONE_ACTIVATION;
+        public final ModConfigSpec.BooleanValue ENTITY_FELLLED;
+        public final ModConfigSpec.BooleanValue RAID_STATUS;
+
+        Triggers(ModConfigSpec.Builder builder) {
+            builder.comment("Triggers").push("triggers");
+
+            CAMPFIRE_LIT = builder
+                    .comment("Banner for lighting up campfires")
+                    .define("campfire_lit", true);
+
+            ENTITY_FELLLED = builder
+                    .comment("Banner for fallen entities (entities must be chosen through datapacks).",
+                            "By default, its all bosses tagged with forge:bosses.",
+                            "Special banners are given to the Wither and Ender Dragon.")
+                    .define("entity_felled", true);
+
+            RAID_STATUS = builder
+                    .comment("Banner for either raid victory or loss")
+                    .define("raid_status", true);
+
+            builder.comment("Compatibility").push("compatibility");
+            BONFIRE_LIT = builder
+                    .comment("Banner for activating bonfires [Bonfires Mod]")
+                    .define("bonfire_lit", true);
+
+            WAYSTONE_ACTIVATION = builder
+                    .comment("Banner for activating waystones [Waystones Mod]")
+                    .define("waystones_activate", true);
+
+            builder.pop();
+            builder.pop();
+        }
     }
 
-    public static ResourceLocation getFont() {
-        return ResourceLocation.parse(DEFAULT_FONT.get());
+    public static class Appearance {
+        public final ModConfigSpec.ConfigValue<Integer> OFFSET_Y;
+        public final ModConfigSpec.BooleanValue TEXT_AUTOSCALE;
+        public final ModConfigSpec.ConfigValue<Double> DEFAULT_TEXT_SCALE;
+        public final ModConfigSpec.ConfigValue<String> DEFAULT_SOUND;
+        public final ModConfigSpec.ConfigValue<String> DEFAULT_FONT;
+
+        public SoundEvent getSound() {
+            ResourceLocation id = ResourceLocation.parse(DEFAULT_SOUND.get());
+            return BuiltInRegistries.SOUND_EVENT.get(id);
+        }
+
+        public ResourceLocation getFont() {
+            return ResourceLocation.parse(DEFAULT_FONT.get());
+        }
+
+        Appearance(ModConfigSpec.Builder builder) {
+            builder.comment("Appearance").push("appearance");
+
+            OFFSET_Y = builder
+                    .comment("Set Y offset of the entire message banner")
+                    .define("offset_y", 0);
+
+            TEXT_AUTOSCALE = builder
+                    .comment("Should text fit into the screen")
+                    .define("text_autoscale", true);
+
+            DEFAULT_TEXT_SCALE = builder
+                    .comment("Default default text scale")
+                    .define("default_text_scale", 3.5);
+
+            DEFAULT_SOUND = builder
+                    .comment("Default sound")
+                    .define("default_sound", "souls_message_banners:generic", obj -> {
+                        if (!(obj instanceof String string)) return false;
+                        return ResourceLocation.tryParse(string) != null;
+                    });
+
+            DEFAULT_FONT = builder
+                    .comment("Default font")
+                    .define("default_font", "souls_message_banners:optimus_principus", obj -> {
+                        if (!(obj instanceof String string)) return false;
+                        return ResourceLocation.tryParse(string) != null;
+                    });
+
+            builder.pop();
+        }
     }
 }
