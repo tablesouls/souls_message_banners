@@ -28,7 +28,7 @@ public class CampfireEvent {
         if(level.isClientSide()) return;
 
         if (state.is(BlockTags.CAMPFIRES)) {
-            if (!SoulsMessageBannersConfig.CAMPFIRE_LIT.get()) return;
+            if (!SoulsMessageBannersConfig.TRIGGERS.CAMPFIRE_LIT.get()) return;
             
             boolean wasLit = state.getValue(BlockStateProperties.LIT);
             if (wasLit) return;

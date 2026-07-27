@@ -40,7 +40,6 @@ minecraft {
 
         server {
             property 'forge.enabledGameTestNamespaces', mod_id
-            args '--nogui'
         }
 
         gameTestServer {
@@ -89,12 +88,15 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    compileOnly fg.deobf("maven.modrinth:waystones:${project.waystones_version}+forge-${project.minecraft_version}")
-    compileOnly fg.deobf("maven.modrinth:balm:${project.balm_version}+forge-${project.minecraft_version}")
-    compileOnly fg.deobf("dev.latvian.mods:kubejs-forge:2001.6.5-build.26")
-    compileOnly fg.deobf("dev.architectury:architectury-forge:9.2.14")
-    compileOnly fg.deobf("curse.maven:bonfires-255347:7207898")
-    compileOnly fg.deobf("maven.modrinth:aCiQlU58:krimvV2q")
+    runtimeOnly fg.deobf("curse.maven:configured-457570:5180900")
+
+    implementation fg.deobf("maven.modrinth:waystones:${project.waystones_version}+forge-${project.minecraft_version}")
+    implementation fg.deobf("maven.modrinth:balm:${project.balm_version}+forge-${project.minecraft_version}")
+    implementation fg.deobf("dev.latvian.mods:kubejs-forge:${project.kubejs_version}")
+    implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
+    implementation fg.deobf("dev.architectury:architectury-forge:${project.architectury_version}")
+    implementation fg.deobf("curse.maven:bonfires-255347:7207898")
+    implementation fg.deobf("maven.modrinth:aCiQlU58:krimvV2q")
 }
 
 tasks.named('processResources', ProcessResources).configure {

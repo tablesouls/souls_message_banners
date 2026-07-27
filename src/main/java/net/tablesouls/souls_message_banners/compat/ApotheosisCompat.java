@@ -1,4 +1,4 @@
-package net.tablesouls.souls_message_banners.integration;
+package net.tablesouls.souls_message_banners.compat;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;

@@ -1,4 +1,4 @@
-package net.tablesouls.souls_message_banners.integration;
+package net.tablesouls.souls_message_banners.compat;
 
 import net.blay09.mods.waystones.api.WaystoneActivatedEvent;
 import net.minecraft.network.chat.Component;
@@ -12,7 +12,7 @@ import net.tablesouls.souls_message_banners.config.SoulsMessageBannersConfig;
 public class WaystonesCompat {
     @SubscribeEvent
     public static void onWaystoneActivated(WaystoneActivatedEvent event) {
-        if (!SoulsMessageBannersConfig.WAYSTONE_ACTIVATION.get()) return;
+        if (!SoulsMessageBannersConfig.TRIGGERS.WAYSTONE_ACTIVATION.get()) return;
         if (!((event.getPlayer()) instanceof ServerPlayer serverPlayer)) return;
 
         MessageBannerAPI.send(

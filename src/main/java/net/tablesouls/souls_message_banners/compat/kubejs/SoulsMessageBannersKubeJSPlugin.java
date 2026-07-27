@@ -1,8 +1,7 @@
-package net.tablesouls.souls_message_banners.integration.kubejs;
+package net.tablesouls.souls_message_banners.compat.kubejs;
 
 import dev.latvian.mods.kubejs.KubeJSPlugin;
 import dev.latvian.mods.kubejs.script.BindingsEvent;
-import net.tablesouls.souls_message_banners.assets.BannerStyle;
 import net.tablesouls.souls_message_banners.api.MessageBannerAPI;
 
 public class SoulsMessageBannersKubeJSPlugin extends KubeJSPlugin {

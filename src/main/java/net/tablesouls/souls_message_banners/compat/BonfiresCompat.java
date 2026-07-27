@@ -1,4 +1,4 @@
-package net.tablesouls.souls_message_banners.integration;
+package net.tablesouls.souls_message_banners.compat;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;
@@ -10,7 +10,7 @@ import wehavecookies56.bonfires.client.gui.CreateBonfireScreen;
 public class BonfiresCompat {
     @SubscribeEvent
     public static void onPlaySound(PlaySoundEvent event) {
-        if(!SoulsMessageBannersConfig.BONFIRE_LIT.get()) return;
+        if(!SoulsMessageBannersConfig.TRIGGERS.BONFIRE_LIT.get()) return;
         if (event.getSound() == null) return;
 
         boolean isToastSound = event.getSound().getLocation().equals(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation());
