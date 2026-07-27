@@ -2,7 +2,7 @@
   "enabled": true,
   "font": "souls_message_banners:optimus_principus",
   "sound": "souls_message_banners:generic",
-  "y_offset": 0,
+  "offset_y": 0,
   "banner": {
     "opacity": 0.5
   },

@@ -111,7 +111,7 @@ public record BannerStyle(
                 GsonHelper.getAsBoolean(json, "enabled", true),
                 font,
                 sound,
-                GsonHelper.getAsInt(json, "y_offset", SoulsMessageBannersConfig.APPEARANCE.OFFSET_Y.get()),
+                GsonHelper.getAsInt(json, "offset_y", SoulsMessageBannersConfig.APPEARANCE.OFFSET_Y.get()),
                 GsonHelper.getAsFloat(banner, "opacity", 0.5f),
                 GsonHelper.getAsFloat(text, "opacity", 0.8f),
                 GsonHelper.getAsBoolean(text, "autoscale", SoulsMessageBannersConfig.APPEARANCE.TEXT_AUTOSCALE.get()),
