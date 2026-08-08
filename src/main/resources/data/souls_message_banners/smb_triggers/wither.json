@@ -1,5 +1,6 @@
 {
-  "targets": [
+  "type": "entity_died",
+  "target_entities": [
     "minecraft:wither"
   ],
   "style": "souls_message_banners:wither_felled",

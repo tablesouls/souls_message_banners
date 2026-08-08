@@ -18,7 +18,7 @@ import net.tablesouls.souls_message_banners.SoulsMessageBanners;
 import net.tablesouls.souls_message_banners.api.MessageBannerAPI;
 import net.tablesouls.souls_message_banners.assets.BannerStyleManager;
 
-@EventBusSubscriber(modid = SoulsMessageBanners.MODID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = SoulsMessageBanners.MODID)
 public class ModCommands {
 
     @SubscribeEvent

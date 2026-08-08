@@ -6,14 +6,23 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.tablesouls.souls_message_banners.assets.BannerStyleManager;
+import net.tablesouls.souls_message_banners.data.TriggerEntry;
 import net.tablesouls.souls_message_banners.network.MessageBannerPacket;
 
 public class MessageBannerAPI {
     public static void send(Player player, MessageBanner banner) {
         if (player instanceof ServerPlayer serverPlayer) {
             PacketDistributor.sendToPlayer(serverPlayer,
-                    new MessageBannerPacket(banner.message(), banner.styleId()));
+                    new MessageBannerPacket(banner.message(), banner.styleId(), banner.identifier(), banner.triggerId()));
         }
+    }
+
+    public static void send(Player player, TriggerEntry entry, Component message, String identifier) {
+        send(player, new MessageBanner(message, entry.style(), identifier, entry.id()));
+    }
+
+    public static void send(Player player, Component message, ResourceLocation styleId, String identifier) {
+        send(player, new MessageBanner(message, styleId, identifier));
     }
 
     public static void send(Player player, Component message, ResourceLocation styleId) {

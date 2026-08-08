@@ -1,9 +1,14 @@
 package net.tablesouls.souls_message_banners.config;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.tablesouls.souls_message_banners.data.TriggerType;
+
+import java.util.List;
+import java.util.Map;
+import java.util.function.BooleanSupplier;
 
 public class SoulsMessageBannersConfig {
     public static final ModConfigSpec COMMON_SPEC;
@@ -12,6 +17,8 @@ public class SoulsMessageBannersConfig {
     public static final ModConfigSpec CLIENT_SPEC;
     public static final Appearance APPEARANCE;
     public static final ModConfigSpec.BooleanValue HIDE_CROSSHAIR_WHEN_BANNER;
+    public static final ModConfigSpec.EnumValue<BannerPlayMode> BANNER_PLAY_MODE;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> TRIGGER_BLACKLIST;
 
     static {
         ModConfigSpec.Builder commonBuilder = new ModConfigSpec.Builder();
@@ -32,6 +39,14 @@ public class SoulsMessageBannersConfig {
                 .comment("Should player's crosshair temporarily hide when a message banner is shown")
                 .define("hide_crosshair_when_banner", true);
 
+        BANNER_PLAY_MODE = clientBuilder
+                .defineEnum("banner_play_mode", BannerPlayMode.EVERYTIME);
+
+        TRIGGER_BLACKLIST = clientBuilder
+                .comment("Block certain triggers from appearing, in <namespace>:<trigger_type_id> format.")
+                .defineListAllowEmpty("trigger_blacklist", List::of,
+                        obj -> obj instanceof String string && ResourceLocation.tryParse(string) != null);
+
         CLIENT_SPEC = clientBuilder.build();
     }
 
@@ -40,7 +55,13 @@ public class SoulsMessageBannersConfig {
         public final ModConfigSpec.BooleanValue BONFIRE_LIT;
         public final ModConfigSpec.BooleanValue WAYSTONE_ACTIVATION;
         public final ModConfigSpec.BooleanValue ENTITY_FELLLED;
+        public final ModConfigSpec.BooleanValue ENTITY_SPAWNED;
+        public final ModConfigSpec.BooleanValue PLAYER_SPAWNED;
+        public final ModConfigSpec.BooleanValue PLAYER_FELLED;
+        public final ModConfigSpec.BooleanValue PLAYER_SPAWN_SET;
         public final ModConfigSpec.BooleanValue RAID_STATUS;
+
+        public final Map<TriggerType, BooleanSupplier> TYPE_SWITCHES;
 
         Triggers(ModConfigSpec.Builder builder) {
             builder.comment("Triggers").push("triggers");
@@ -48,15 +69,17 @@ public class SoulsMessageBannersConfig {
             CAMPFIRE_LIT = builder
                     .comment("Banner for lighting up campfires")
                     .define("campfire_lit", true);
-
             ENTITY_FELLLED = builder
-                    .comment("Banner for fallen entities (entities must be chosen through datapacks).",
-                            "By default, its all bosses tagged with forge:bosses.",
-                            "Special banners are given to the Wither and Ender Dragon.")
                     .define("entity_felled", true);
-
+            ENTITY_SPAWNED = builder
+                    .define("entity_spawned", true);
+            PLAYER_SPAWNED = builder
+                    .define("player_spawned", true);
+            PLAYER_FELLED = builder
+                    .define("player_felled", true);
+            PLAYER_SPAWN_SET = builder
+                    .define("player_spawn_set", true);
             RAID_STATUS = builder
-                    .comment("Banner for either raid victory or loss")
                     .define("raid_status", true);
 
             builder.comment("Compatibility").push("compatibility");
@@ -70,6 +93,18 @@ public class SoulsMessageBannersConfig {
 
             builder.pop();
             builder.pop();
+
+            TYPE_SWITCHES = Map.of(
+                    TriggerType.BLOCK_STATE_CHANGED_ON_INTERACT, (BooleanSupplier) CAMPFIRE_LIT::get,
+                    TriggerType.BONFIRE_LIT, (BooleanSupplier) BONFIRE_LIT::get,
+                    TriggerType.WAYSTONE_ACTIVATION, (BooleanSupplier) WAYSTONE_ACTIVATION::get,
+                    TriggerType.ENTITY_DIED, (BooleanSupplier) ENTITY_FELLLED::get,
+                    TriggerType.ENTITY_SPAWNED, (BooleanSupplier) ENTITY_SPAWNED::get,
+                    TriggerType.PLAYER_SPAWNED, (BooleanSupplier) PLAYER_SPAWNED::get,
+                    TriggerType.PLAYED_DIED, (BooleanSupplier) PLAYER_FELLED::get,
+                    TriggerType.PLAYER_SPAWN_SET, (BooleanSupplier) PLAYER_SPAWN_SET::get,
+                    TriggerType.RAID_STATUS, (BooleanSupplier) RAID_STATUS::get
+            );
         }
     }
 

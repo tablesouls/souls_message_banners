@@ -1,8 +1,9 @@
 {
-  "targets": [
+  "type": "entity_died",
+  "target_entities": [
     "minecraft:ender_dragon"
   ],
+  "display_mode": "dimension",
   "style": "souls_message_banners:dragon_felled",
-  "dimension": true,
   "priority": 1
 }

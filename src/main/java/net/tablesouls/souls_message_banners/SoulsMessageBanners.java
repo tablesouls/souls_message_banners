@@ -1,5 +1,6 @@
 package net.tablesouls.souls_message_banners;
 
+import com.mojang.logging.LogUtils;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -13,15 +14,17 @@ import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.minecraft.resources.ResourceLocation;
 import net.tablesouls.souls_message_banners.client.MessageBannerRenderer;
-import net.tablesouls.souls_message_banners.compat.BonfiresCompat;
-import net.tablesouls.souls_message_banners.compat.WaystonesCompat;
+import net.tablesouls.souls_message_banners.compat.bonfires.BonfiresCompat;
+import net.tablesouls.souls_message_banners.compat.waystones.WaystonesCompat;
 import net.tablesouls.souls_message_banners.config.SoulsMessageBannersConfig;
 import net.tablesouls.souls_message_banners.sound.ModSounds;
+import org.slf4j.Logger;
 
 @Mod(SoulsMessageBanners.MODID)
 public class SoulsMessageBanners
 {
     public static final String MODID = "souls_message_banners";
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public SoulsMessageBanners(IEventBus modEventBus, ModContainer modContainer) {
         ModSounds.SOUND_EVENTS.register(modEventBus);

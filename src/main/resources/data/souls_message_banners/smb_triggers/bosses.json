@@ -1,5 +1,6 @@
 {
-  "targets": [
+  "type": "entity_died",
+  "target_entities": [
     "#forge:bosses",
     "#c:bosses",
     "mowziesmobs:ferrous_wroughtnaut",
