@@ -1,4 +1,4 @@
-package net.tablesouls.souls_message_banners.listeners;
+package net.tablesouls.souls_message_banners.event;
 
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -9,6 +9,6 @@ import net.tablesouls.souls_message_banners.SoulsMessageBanners;
 public class CommonReloadListeners {
     @SubscribeEvent
     public static void registerReloadListeners(AddReloadListenerEvent event) {
-        event.addListener(new EntityBannerReloadListener());
+        event.addListener(new TriggerReloadListener());
     }
 }

@@ -1,12 +1,15 @@
-package net.tablesouls.souls_message_banners.client;
+package net.tablesouls.souls_message_banners.event;
 
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.tablesouls.souls_message_banners.SoulsMessageBanners;
+import net.tablesouls.souls_message_banners.client.ClientBannerPlayTracker;
+import net.tablesouls.souls_message_banners.config.BannerPlayMode;
 import net.tablesouls.souls_message_banners.config.SoulsMessageBannersConfig;
 import net.tablesouls.souls_message_banners.util.MessageBannerHelper;
 
@@ -25,6 +28,13 @@ public class ClientForgeEvents {
         if (!SoulsMessageBannersConfig.HIDE_CROSSHAIR_WHEN_BANNER.get()) return;
         if (MessageBannerHelper.getMessage() != null) {
             event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLoggedOut(ClientPlayerNetworkEvent.LoggingOut event) {
+        if (SoulsMessageBannersConfig.BANNER_PLAY_MODE.get() == BannerPlayMode.ONCE_A_WORLD) {
+            ClientBannerPlayTracker.clear();
         }
     }
 }

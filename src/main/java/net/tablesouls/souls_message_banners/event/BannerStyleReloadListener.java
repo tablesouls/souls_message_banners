@@ -1,4 +1,4 @@
-package net.tablesouls.souls_message_banners.listeners;
+package net.tablesouls.souls_message_banners.event;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -7,15 +7,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.tablesouls.souls_message_banners.SoulsMessageBanners;
 import net.tablesouls.souls_message_banners.assets.BannerStyle;
 import net.tablesouls.souls_message_banners.assets.BannerStyleManager;
-import org.slf4j.Logger;
 
 import java.util.Map;
 
 public class BannerStyleReloadListener extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = new Gson();
-    private static final Logger LOGGER = LogUtils.getLogger();
 
     public BannerStyleReloadListener() {
         super(GSON, "smb_styles");
@@ -37,13 +36,13 @@ public class BannerStyleReloadListener extends SimpleJsonResourceReloadListener 
                 BannerStyleManager.register(id, style);
                 loaded++;
             } catch (Exception e) {
-                LOGGER.error("Failed to load banner style '{}': {}", id, e.getMessage());
+                SoulsMessageBanners.LOGGER.error("Failed to load banner style '{}': {}", id, e.getMessage());
             }
         }
-        LOGGER.info("Loaded {} banner style(s)", loaded);
+        SoulsMessageBanners.LOGGER.info("Loaded {} banner style(s)", loaded);
 
         if (BannerStyleManager.get(BannerStyleManager.DEFAULT) == null) {
-            LOGGER.warn("No '{}' banner style found", BannerStyleManager.DEFAULT);
+            SoulsMessageBanners.LOGGER.warn("No '{}' banner style found", BannerStyleManager.DEFAULT);
         }
     }
 }

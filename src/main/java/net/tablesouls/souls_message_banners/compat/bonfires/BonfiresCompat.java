@@ -1,13 +1,17 @@
-package net.tablesouls.souls_message_banners.compat;
+package net.tablesouls.souls_message_banners.compat.bonfires;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.tablesouls.souls_message_banners.config.SoulsMessageBannersConfig;
 import wehavecookies56.bonfires.client.gui.CreateBonfireScreen;
 
 public class BonfiresCompat {
+    public static final String MODID = "bonfires";
+    public static final boolean LOADED = ModList.get().isLoaded(MODID);
+
     @SubscribeEvent
     public static void onPlaySound(PlaySoundEvent event) {
         if(!SoulsMessageBannersConfig.TRIGGERS.BONFIRE_LIT.get()) return;

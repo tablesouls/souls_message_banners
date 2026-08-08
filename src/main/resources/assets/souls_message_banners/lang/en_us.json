@@ -1,10 +1,14 @@
 {
   "souls_message_banners.message.campfire_lit": "CAMPFIRE LIT",
   "souls_message_banners.message.bonfire_lit": "BONFIRE LIT",
+  "souls_message_banners.message.spawn_point_set": "RESPAWN SET",
   "souls_message_banners.message.boss_felled": "ENEMY FELLED",
   "souls_message_banners.message.dragon_felled": "DRAGON FELLED",
   "souls_message_banners.message.wither_felled": "WITHER FELLED",
   "souls_message_banners.message.entity_felled": "%s FELLED",
+  "souls_message_banners.message.entity_spawned": "%s ARRIVED",
+  "souls_message_banners.message.player_spawned": "%s ARRIVED",
+  "souls_message_banners.message.player_felled": "%s HAS FALLEN",
   "souls_message_banners.message.waystone_activated": "WAYSTONE ACTIVATED",
   "souls_message_banners.message.raid_victory": "RAIDERS BANISHED",
   "souls_message_banners.message.raid_loss": "VILLAGE LOST"

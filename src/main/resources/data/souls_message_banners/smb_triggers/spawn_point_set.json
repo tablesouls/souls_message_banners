@@ -1,0 +1,7 @@
+{
+  "type": "player_spawn_set",
+  "message": {
+    "translate": "souls_message_banners.message.spawn_point_set"
+  },
+  "style": "souls_message_banners:campfire_lit"
+}

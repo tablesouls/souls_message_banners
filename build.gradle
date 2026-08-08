@@ -82,21 +82,48 @@ repositories {
     maven {
         url = "https://maven.architectury.dev/"
     }
+    maven {
+        url = "https://maven.shadowsoffire.dev/releases"
+    }
 }
+
+def localProps = new Properties()
+def localPropsFile = rootProject.file('local.properties')
+if (localPropsFile.exists()) {
+    localProps.load(new FileInputStream(localPropsFile))
+}
+def compatModsRuntime = localProps.getProperty('enableCompatModsRuntime', 'false').toBoolean()
+
+def compatDeps = [
+        fg.deobf("maven.modrinth:waystones:${project.waystones_forge_version}+forge-${project.minecraft_version}"),
+        fg.deobf("maven.modrinth:balm:${project.balm_forge_version}+forge-${project.minecraft_version}"),
+        fg.deobf("dev.latvian.mods:kubejs-forge:${project.kubejs_forge_version}"),
+        fg.deobf("dev.latvian.mods:rhino-forge:${rhino_forge_version}"),
+        fg.deobf("dev.architectury:architectury-forge:${project.architectury_forge_version}"),
+        fg.deobf("curse.maven:bonfires-255347:7207898"),
+        fg.deobf("maven.modrinth:aCiQlU58:krimvV2q"),
+        fg.deobf("dev.shadowsoffire:Placebo:${minecraft_version}-${placebo_forge_version}"),
+        fg.deobf("dev.shadowsoffire:ApothicAttributes:${minecraft_version}-${apoth_attributes_forge_version}"),
+        fg.deobf("dev.shadowsoffire:Apotheosis:${minecraft_version}-${apoth_forge_version}")
+]
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    runtimeOnly fg.deobf("curse.maven:configured-457570:5180900")
+    compatDeps.each { dep ->
+        compileOnly dep
+        if (compatModsRuntime) {
+            runtimeOnly dep
+        }
+    }
 
-    implementation fg.deobf("maven.modrinth:waystones:${project.waystones_version}+forge-${project.minecraft_version}")
-    implementation fg.deobf("maven.modrinth:balm:${project.balm_version}+forge-${project.minecraft_version}")
-    implementation fg.deobf("dev.latvian.mods:kubejs-forge:${project.kubejs_version}")
-    implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
-    implementation fg.deobf("dev.architectury:architectury-forge:${project.architectury_version}")
-    implementation fg.deobf("curse.maven:bonfires-255347:7207898")
-    implementation fg.deobf("maven.modrinth:aCiQlU58:krimvV2q")
+    runtimeOnly fg.deobf("curse.maven:configured-457570:5180900")
+    runtimeOnly fg.deobf("maven.modrinth:XqqOkvZz:XMYeNIOx")
+
+    if (compatModsRuntime) {
+        runtimeOnly fg.deobf("curse.maven:lit-on-fire-1156815:7163003")
+    }
 }
 
 tasks.named('processResources', ProcessResources).configure {

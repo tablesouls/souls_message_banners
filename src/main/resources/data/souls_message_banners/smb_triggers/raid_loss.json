@@ -1,0 +1,10 @@
+{
+  "type": "raid_status",
+  "targets": [
+    "loss"
+  ],
+  "message": {
+    "translate": "souls_message_banners.message.raid_loss"
+  },
+  "style": "souls_message_banners:raid_loss"
+}

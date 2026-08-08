@@ -6,8 +6,8 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.tablesouls.souls_message_banners.SoulsMessageBanners;
 import net.tablesouls.souls_message_banners.config.SoulsMessageBannersConfig;
-import org.slf4j.Logger;
 
 public record BannerStyle(
         boolean enabled,
@@ -37,8 +37,6 @@ public record BannerStyle(
         int holdTicks,
         int fadeOutTicks
 ) {
-    private static final Logger LOGGER = LogUtils.getLogger();
-
     public enum SpacingAnimationMode {
         FADE_IN,
         FADE_OUT,
@@ -66,7 +64,7 @@ public record BannerStyle(
                     GsonHelper.getAsString(json, "font", SoulsMessageBannersConfig.APPEARANCE.DEFAULT_FONT.get())
             );
         } catch (Exception e) {
-            LOGGER.warn("Invalid font '{}', using default.",
+            SoulsMessageBanners.LOGGER.warn("Invalid font '{}', using default.",
                     GsonHelper.getAsString(json, "font", SoulsMessageBannersConfig.APPEARANCE.DEFAULT_FONT.get()), e);
             font = ResourceLocation.parse(SoulsMessageBannersConfig.APPEARANCE.DEFAULT_FONT.get());
         }
@@ -79,10 +77,10 @@ public record BannerStyle(
                 sound = ForgeRegistries.SOUND_EVENTS.getValue(soundId);
 
                 if (sound == null) {
-                    LOGGER.warn("Unknown sound '{}', using default.", soundKey);
+                    SoulsMessageBanners.LOGGER.warn("Unknown sound '{}', using default.", soundKey);
                 }
             } catch (Exception e) {
-                LOGGER.warn("Invalid sound '{}', using default.", soundKey, e);
+                SoulsMessageBanners.LOGGER.warn("Invalid sound '{}', using default.", soundKey, e);
             }
         }
 
@@ -95,7 +93,7 @@ public record BannerStyle(
         try {
             spacingAnimationMode = SpacingAnimationMode.valueOf(spacing_animation_mode_name);
         } catch (IllegalArgumentException e) {
-            LOGGER.warn("Unknown spacing_animation_mode '{}', using default.", spacing_animation_mode_name);
+            SoulsMessageBanners.LOGGER.warn("Unknown spacing_animation_mode '{}', using default.", spacing_animation_mode_name);
             spacingAnimationMode = SpacingAnimationMode.HOLD;
         }
 

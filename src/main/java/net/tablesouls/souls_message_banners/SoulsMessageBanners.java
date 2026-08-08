@@ -1,25 +1,25 @@
 package net.tablesouls.souls_message_banners;
 
+import com.mojang.logging.LogUtils;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.tablesouls.souls_message_banners.client.MessageBannerRenderer;
 import net.tablesouls.souls_message_banners.config.SoulsMessageBannersConfig;
-import net.tablesouls.souls_message_banners.compat.BonfiresCompat;
-import net.tablesouls.souls_message_banners.compat.WaystonesCompat;
+import net.tablesouls.souls_message_banners.compat.bonfires.BonfiresCompat;
+import net.tablesouls.souls_message_banners.compat.waystones.WaystonesCompat;
 import net.tablesouls.souls_message_banners.network.NetworkHandler;
 import net.tablesouls.souls_message_banners.sound.ModSounds;
+import org.slf4j.Logger;
 
 @Mod(SoulsMessageBanners.MODID)
 public class SoulsMessageBanners
 {
     public static final String MODID = "souls_message_banners";
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public SoulsMessageBanners(FMLJavaModLoadingContext context) {
         NetworkHandler.register();
@@ -33,14 +33,6 @@ public class SoulsMessageBanners
         }
         if (ModList.get().isLoaded("waystones")) {
             MinecraftForge.EVENT_BUS.register(WaystonesCompat.class);
-        }
-    }
-
-    @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = SoulsMessageBanners.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public class ClientSetup {
-        @SubscribeEvent
-        public static void onRegisterOverlays(RegisterGuiOverlaysEvent event) {
-            event.registerAboveAll(SoulsMessageBanners.MODID, new MessageBannerRenderer());
         }
     }
 }

@@ -1,0 +1,10 @@
+{
+  "type": "raid_status",
+  "targets": [
+    "victory"
+  ],
+  "message": {
+    "translate": "souls_message_banners.message.raid_victory"
+  },
+  "style": "souls_message_banners:raid_victory"
+}

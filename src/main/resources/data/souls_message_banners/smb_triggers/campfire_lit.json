@@ -1,0 +1,15 @@
+{
+  "type": "block_state_changed_on_interact",
+  "target_blocks": [
+    "#minecraft:campfires"
+  ],
+  "conditions": {
+    "new_blockstate": {
+      "lit": true
+    }
+  },
+  "message": {
+    "translate": "souls_message_banners.message.campfire_lit"
+  },
+  "style": "souls_message_banners:campfire_lit"
+}

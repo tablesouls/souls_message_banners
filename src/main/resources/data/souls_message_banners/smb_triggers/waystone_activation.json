@@ -1,0 +1,10 @@
+{
+  "type": "waystone_activation",
+  "target_blocks": [
+    ".*"
+  ],
+  "message": {
+    "translate": "souls_message_banners.message.waystone_activated"
+  },
+  "style": "souls_message_banners:waystone_activated"
+}
