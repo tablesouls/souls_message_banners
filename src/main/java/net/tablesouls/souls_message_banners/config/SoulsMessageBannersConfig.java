@@ -17,6 +17,7 @@ public class SoulsMessageBannersConfig {
     public static final ForgeConfigSpec CLIENT_SPEC;
     public static final Appearance APPEARANCE;
     public static final ForgeConfigSpec.BooleanValue HIDE_CROSSHAIR_WHEN_BANNER;
+    public static final ForgeConfigSpec.BooleanValue BLOCK_RESPAWN_POINT_SET_MESSAGE;
     public static final ForgeConfigSpec.EnumValue<BannerPlayMode> BANNER_PLAY_MODE;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> TRIGGER_BLACKLIST;
 
@@ -25,6 +26,10 @@ public class SoulsMessageBannersConfig {
         ForgeConfigSpec.Builder clientBuilder = new ForgeConfigSpec.Builder();
 
         TRIGGERS = new Triggers(commonBuilder);
+
+        BLOCK_RESPAWN_POINT_SET_MESSAGE = commonBuilder
+                .define("block_respawn_point_set_message", true);
+
         COMMON_SPEC = commonBuilder.build();
 
         clientBuilder
@@ -43,7 +48,7 @@ public class SoulsMessageBannersConfig {
                 .defineEnum("banner_play_mode", BannerPlayMode.EVERYTIME);
 
         TRIGGER_BLACKLIST = clientBuilder
-                .comment("Block certain triggers from appearing, in <namespace>:<trigger_type_id> format.")
+                .comment("Block certain triggers from appearing, in <namespace>:<trigger_id> format.")
                 .defineListAllowEmpty("trigger_blacklist", List::of,
                         obj -> obj instanceof String string && ResourceLocation.isValidResourceLocation(string));
 

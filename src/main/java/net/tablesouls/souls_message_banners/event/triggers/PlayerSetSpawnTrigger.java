@@ -17,16 +17,17 @@ import java.util.Objects;
 @Mod.EventBusSubscriber(modid = SoulsMessageBanners.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class PlayerSetSpawnTrigger extends AbstractMessageTrigger {
 
+    public static boolean SUPPRESS_MESSAGE = false;
+
     @SubscribeEvent
     public static void onSetSpawn(PlayerSetSpawnEvent event) {
-        if (!(event.getEntity() instanceof ServerPlayer player)) {
-            return;
-        }
+        if (SUPPRESS_MESSAGE) return;
 
-        BlockPos oldSpawn = player.getRespawnPosition();
-        BlockPos newSpawn = event.getNewSpawn();
+        if (!(event.getEntity() instanceof ServerPlayer player)) return;
 
-        if (Objects.equals(oldSpawn, newSpawn)) return;
+        boolean flag = java.util.Objects.equals(player.getRespawnPosition(), event.getNewSpawn())
+                && player.getRespawnDimension().equals(event.getSpawnLevel());
+        if (flag) return;
 
         TriggerEntry entry = TriggerManager.getPlayerTrigger(TriggerType.PLAYER_SPAWN_SET, player);
         if (entry == null) return;
