@@ -21,7 +21,7 @@ public class BonfiresCompat {
 
     @SubscribeEvent
     public static void onPlaySound(PlaySoundEvent event) {
-        if(!SoulsMessageBannersConfig.TRIGGERS.BONFIRE_LIT.get()) return;
+        if(!SoulsMessageBannersConfig.TRIGGERS.BONFIRES_BONFIRE_LIT.get()) return;
         if (event.getSound() == null) return;
 
         boolean isToastSound = event.getSound().getLocation().equals(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation());

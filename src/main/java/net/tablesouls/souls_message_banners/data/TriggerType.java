@@ -7,9 +7,10 @@ public enum TriggerType {
     PLAYER_SPAWNED("player_spawned"),
     PLAYER_SPAWN_SET("player_spawn_set"),
     BLOCK_STATE_CHANGED_ON_INTERACT("block_state_changed_on_interact"),
-    WAYSTONE_ACTIVATION("waystone_activation"),
-    BONFIRE_LIT("bonfire_lit"),
-    RAID_STATUS("raid_status");
+    RAID_STATUS("raid_status"),
+    BONFIRE_LIT("bonfires:bonfire_lit"),
+    WAYSTONE_ACTIVATION("waystones:waystone_activated"),
+    XP_CATALYST_RETRIEVED("irons_rpg_tweaks:xp_catalyst_retrieved");
 
     private final String id;
 

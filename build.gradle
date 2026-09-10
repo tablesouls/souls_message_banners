@@ -96,12 +96,13 @@ repositories {
 dependencies {
     localRuntime "curse.maven:configured-457570:7276577"
 
-    implementation "maven.modrinth:waystones:${project.waystones_version}+neoforge-${project.minecraft_version}"
-    implementation "maven.modrinth:balm:${project.balm_version}+neoforge-${project.minecraft_version}"
-    implementation "dev.latvian.mods:kubejs-neoforge:${project.kubejs_version}"
-    implementation "dev.latvian.mods:rhino:${project.rhino_version}"
-    implementation "dev.architectury:architectury-neoforge:${project.architectury_version}"
-    implementation "curse.maven:bonfires-255347:7207937"
+    implementation "maven.modrinth:waystones:${project.waystones_neoforge_version}+neoforge-${project.minecraft_version}"
+    implementation "maven.modrinth:balm:${project.balm_neoforge_version}+neoforge-${project.minecraft_version}"
+    implementation "dev.latvian.mods:kubejs-neoforge:${project.kubejs_neoforge_version}"
+    implementation "dev.latvian.mods:rhino:${project.rhino_neoforge_version}"
+    implementation "dev.architectury:architectury-neoforge:${project.architectury_neoforge_version}"
+    implementation "curse.maven:bonfires-255347:${project.bonfires_neoforge_version}"
+    implementation "curse.maven:irons-rpg-tweaks-871799:${project.irons_rpg_tweaks_neoforge_version}"
     implementation "maven.modrinth:aCiQlU58:qRpCDvOu"
 }
 
@@ -113,6 +114,8 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             loader_version_range   : loader_version_range,
             mod_id                 : mod_id,
             mod_name               : mod_name,
+            mod_authors            : mod_authors,
+            mod_description        : mod_description,
             mod_license            : mod_license,
             mod_version            : mod_version,
             mod_logo               : mod_logo

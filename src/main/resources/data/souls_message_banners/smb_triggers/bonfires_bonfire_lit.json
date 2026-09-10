@@ -1,10 +1,10 @@
 {
-  "type": "bonfire_lit",
+  "type": "bonfires:bonfire_lit",
   "targets": [
     "bonfires:bonfire"
   ],
   "message": {
-    "translate": "souls_message_banners.message.bonfire_lit"
+    "translate": "souls_message_banners.message.bonfires.bonfire_lit"
   },
   "style": "souls_message_banners:bonfire_lit"
 }
