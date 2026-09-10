@@ -11,4 +11,4 @@ description='''${mod_description}'''
 logoFile="${mod_logo}"
 
 [[mixins]]
-config = "mixins.souls_message_banners.bonfires.json"
+config = "souls_message_banners.mixins.json"

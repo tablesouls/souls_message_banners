@@ -59,7 +59,6 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 mixin {
     add sourceSets.main, "${mod_id}.refmap.json"
 
-    config "${mod_id}.mixins.bonfires.json"
     config "${mod_id}.mixins.json"
 }
 
@@ -104,7 +103,8 @@ def compatDeps = [
         fg.deobf("maven.modrinth:aCiQlU58:krimvV2q"),
         fg.deobf("dev.shadowsoffire:Placebo:${minecraft_version}-${placebo_forge_version}"),
         fg.deobf("dev.shadowsoffire:ApothicAttributes:${minecraft_version}-${apoth_attributes_forge_version}"),
-        fg.deobf("dev.shadowsoffire:Apotheosis:${minecraft_version}-${apoth_forge_version}")
+        fg.deobf("dev.shadowsoffire:Apotheosis:${minecraft_version}-${apoth_forge_version}"),
+        fg.deobf("curse.maven:irons-rpg-tweaks-871799:${irons_rpg_tweaks_forge_version}")
 ]
 
 dependencies {

@@ -57,14 +57,15 @@ public class SoulsMessageBannersConfig {
 
     public static class Triggers {
         public final ForgeConfigSpec.BooleanValue CAMPFIRE_LIT;
-        public final ForgeConfigSpec.BooleanValue BONFIRE_LIT;
-        public final ForgeConfigSpec.BooleanValue WAYSTONE_ACTIVATION;
         public final ForgeConfigSpec.BooleanValue ENTITY_FELLLED;
         public final ForgeConfigSpec.BooleanValue ENTITY_SPAWNED;
         public final ForgeConfigSpec.BooleanValue PLAYER_SPAWNED;
         public final ForgeConfigSpec.BooleanValue PLAYER_FELLED;
         public final ForgeConfigSpec.BooleanValue PLAYER_SPAWN_SET;
         public final ForgeConfigSpec.BooleanValue RAID_STATUS;
+        public final ForgeConfigSpec.BooleanValue BONFIRES_BONFIRE_LIT;
+        public final ForgeConfigSpec.BooleanValue WAYSTONES_WAYSTONE_ACTIVATED;
+        public final ForgeConfigSpec.BooleanValue IRONS_RPG_TWEAKS_XP_CATALYST_RETRIEVED;
 
         public final Map<TriggerType, BooleanSupplier> TYPE_SWITCHES;
 
@@ -88,21 +89,26 @@ public class SoulsMessageBannersConfig {
                     .define("raid_status", true);
 
             builder.comment("Compatibility").push("compatibility");
-            BONFIRE_LIT = builder
+            BONFIRES_BONFIRE_LIT = builder
                     .comment("Banner for activating bonfires [Bonfires Mod]")
-                    .define("bonfire_lit", true);
+                    .define("bonfires_bonfire_lit", true);
 
-            WAYSTONE_ACTIVATION = builder
+            WAYSTONES_WAYSTONE_ACTIVATED = builder
                     .comment("Banner for activating waystones [Waystones Mod]")
-                    .define("waystones_activate", true);
+                    .define("waystone_activated", true);
+
+            IRONS_RPG_TWEAKS_XP_CATALYST_RETRIEVED = builder
+                    .comment("Banner for retrieving experience catalyst [Irons RPG Tweaks]")
+                    .define("xp_catalyst_retrieved", true);
 
             builder.pop();
             builder.pop();
 
             TYPE_SWITCHES = Map.of(
                     TriggerType.BLOCK_STATE_CHANGED_ON_INTERACT, (BooleanSupplier) CAMPFIRE_LIT::get,
-                    TriggerType.BONFIRE_LIT, (BooleanSupplier) BONFIRE_LIT::get,
-                    TriggerType.WAYSTONE_ACTIVATION, (BooleanSupplier) WAYSTONE_ACTIVATION::get,
+                    TriggerType.BONFIRE_LIT, (BooleanSupplier) BONFIRES_BONFIRE_LIT::get,
+                    TriggerType.WAYSTONE_ACTIVATION, (BooleanSupplier) WAYSTONES_WAYSTONE_ACTIVATED::get,
+                    TriggerType.XP_CATALYST_RETRIEVED, (BooleanSupplier) IRONS_RPG_TWEAKS_XP_CATALYST_RETRIEVED::get,
                     TriggerType.ENTITY_DIED, (BooleanSupplier) ENTITY_FELLLED::get,
                     TriggerType.ENTITY_SPAWNED, (BooleanSupplier) ENTITY_SPAWNED::get,
                     TriggerType.PLAYER_SPAWNED, (BooleanSupplier) PLAYER_SPAWNED::get,

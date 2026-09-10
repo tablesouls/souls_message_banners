@@ -1,0 +1,10 @@
+{
+  "type": "irons_rpg_tweaks:xp_catalyst_retrieved",
+  "targets": [
+    "irons_rpg_tweaks:xp_catalyst"
+  ],
+  "message": {
+    "translate": "souls_message_banners.message.experience_restored"
+  },
+  "style": "souls_message_banners:experience_restored"
+}

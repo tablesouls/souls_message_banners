@@ -6,7 +6,9 @@
   "mixins": [
     "RaidStatusMixin",
     "PlayerListMixin",
-    "ServerPlayerMixin"
+    "ServerPlayerMixin",
+    "bonfires.LightBonfireMixin",
+    "irons_rpg_tweaks.XpCatalystMixin"
   ],
   "injectors": {
     "defaultRequire": 1
