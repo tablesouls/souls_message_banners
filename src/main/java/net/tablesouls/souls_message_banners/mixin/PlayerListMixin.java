@@ -1,32 +1,22 @@
 package net.tablesouls.souls_message_banners.mixin;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
-import net.minecraft.world.level.Level;
 import net.tablesouls.souls_message_banners.event.triggers.PlayerSetSpawnTrigger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 @Mixin(PlayerList.class)
 public class PlayerListMixin {
-
-    @Redirect(
-            method = "respawn",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/server/level/ServerPlayer;setRespawnPosition(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/BlockPos;FZZ)V"
-            )
-    )
-    private void souls_message_banners$respawnCopy(
-            ServerPlayer player, ResourceKey<Level> dimension, BlockPos pos, float angle, boolean forced, boolean sendMessage) {
+    @Inject(method = "respawn", at = @At("HEAD"))
+    private void souls_message_banners$suppressStart(CallbackInfoReturnable cir) {
         PlayerSetSpawnTrigger.SUPPRESS_MESSAGE = true;
-        try {
-            player.setRespawnPosition(dimension, pos, angle, forced, sendMessage);
-        } finally {
-            PlayerSetSpawnTrigger.SUPPRESS_MESSAGE = false;
-        }
+    }
+
+    @Inject(method = "respawn", at = @At("RETURN"))
+    private void souls_message_banners$suppressEnd(CallbackInfoReturnable cir) {
+        PlayerSetSpawnTrigger.SUPPRESS_MESSAGE = false;
     }
 }

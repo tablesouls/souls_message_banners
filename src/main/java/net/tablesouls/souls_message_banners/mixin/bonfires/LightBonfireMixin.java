@@ -30,7 +30,7 @@ public class LightBonfireMixin {
             if (entry != null) {
                 Component message = entry.message() != null
                         ? Component.Serializer.fromJson(entry.message())
-                        : Component.translatable("souls_message_banners.message.bonfire_lit");
+                        : Component.translatable("souls_message_banners.message.bonfires.bonfire_lit");
 
                 MessageBannerAPI.send(player, entry, message, BONFIRE_IDENTIFIER);
                 return;

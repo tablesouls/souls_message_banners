@@ -1,5 +1,6 @@
 package net.tablesouls.souls_message_banners.mixin.irons_rpg_tweaks;
 
+import io.redspace.ironsrpgtweaks.xp_module.entity.XpCatalyst;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -10,14 +11,14 @@ import net.tablesouls.souls_message_banners.data.TriggerEntry;
 import net.tablesouls.souls_message_banners.data.TriggerManager;
 import net.tablesouls.souls_message_banners.data.TriggerType;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Pseudo;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Pseudo
-@Mixin(targets = "io.redspace.ironsrpgtweaks.xp_module.entity.XpCatalyst")
+@Mixin(XpCatalyst.class)
 public abstract class XpCatalystMixin {
+    @Unique
     private static final String XP_CATALYST_IDENTIFIER = "irons_rpg_tweaks:xp_catalyst";
 
     @Inject(
@@ -26,7 +27,8 @@ public abstract class XpCatalystMixin {
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/entity/player/Player;giveExperiencePoints(I)V",
                     shift = At.Shift.AFTER
-            )
+            ),
+            require = 0
     )
     private void souls_message_banners$onXpRetrieved(Player player, InteractionHand hand,
                                                      CallbackInfoReturnable<InteractionResult> cir) {

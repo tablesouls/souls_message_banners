@@ -1,6 +1,5 @@
 package net.tablesouls.souls_message_banners.event.triggers;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.entity.player.PlayerSetSpawnEvent;
@@ -12,11 +11,8 @@ import net.tablesouls.souls_message_banners.data.TriggerEntry;
 import net.tablesouls.souls_message_banners.data.TriggerManager;
 import net.tablesouls.souls_message_banners.data.TriggerType;
 
-import java.util.Objects;
-
 @Mod.EventBusSubscriber(modid = SoulsMessageBanners.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class PlayerSetSpawnTrigger extends AbstractMessageTrigger {
-
     public static boolean SUPPRESS_MESSAGE = false;
 
     @SubscribeEvent
