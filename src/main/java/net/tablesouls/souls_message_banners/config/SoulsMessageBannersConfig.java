@@ -124,6 +124,7 @@ public class SoulsMessageBannersConfig {
         public final ForgeConfigSpec.BooleanValue TEXT_AUTOSCALE;
         public final ForgeConfigSpec.ConfigValue<Double> DEFAULT_TEXT_SCALE;
         public final ForgeConfigSpec.ConfigValue<String> DEFAULT_SOUND;
+        public final ForgeConfigSpec.DoubleValue VOLUME;
         public final ForgeConfigSpec.ConfigValue<String> DEFAULT_FONT;
 
         public SoundEvent getSound() {
@@ -156,6 +157,10 @@ public class SoulsMessageBannersConfig {
                         if (!(obj instanceof String string)) return false;
                         return ResourceLocation.isValidResourceLocation(string);
                     });
+
+            VOLUME = builder
+                    .comment("Master volume")
+                    .defineInRange("volume", 1.0D,0.0D, 1.0D);
 
             DEFAULT_FONT = builder
                     .comment("Default font")
